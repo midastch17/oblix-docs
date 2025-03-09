@@ -1,0 +1,10 @@
+{
+  "name": "oblix-docs",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "pip install mkdocs-material && mkdocs build"
+  },
+  "devDependencies": {
+    "vercel": "^28.0.0"
+  }
+}
