@@ -75,7 +75,7 @@ plugins:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/oblixai
+      link: https://github.com/oblix-ai/oblix-docs
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/oblixai
     - icon: fontawesome/brands/linkedin
