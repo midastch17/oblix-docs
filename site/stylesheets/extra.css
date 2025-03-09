@@ -1,0 +1,189 @@
+```css
+:root {
+  --md-primary-fg-color: #233dff;
+  --md-primary-fg-color--light: #4c60ff;
+  --md-primary-fg-color--dark: #0926d9;
+  --md-accent-fg-color: #233dff;
+  --md-accent-fg-color--transparent: rgba(35, 61, 255, 0.1);
+}
+
+/* Dark mode with light yellow theme */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #f5d76e;        /* Light yellow for the banner */
+  --md-primary-fg-color--light: #f9e7a0; /* Even lighter yellow for hover states */
+  --md-primary-fg-color--dark: #edc850;  /* Slightly darker yellow for active states */
+  --md-accent-fg-color: #f5d76e;         /* Match the accent color to primary */
+  --md-accent-fg-color--transparent: rgba(245, 215, 110, 0.1);
+  
+  /* Improve readability of text on yellow background in dark mode */
+  --md-primary-bg-color: #333333;        /* Darker background for text on the yellow banner */
+  --md-primary-bg-color--light: #444444;
+}
+
+/* Style for cards */
+.grid {
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-gap: 1rem;
+  margin: 1rem 0;
+}
+
+.grid.cards > :is(ul, ol) {
+  display: contents;
+}
+
+.grid.cards > :is(ul, ol) > li,
+.grid > .card {
+  border-radius: 0.2rem;
+  box-shadow: var(--md-shadow-z1);
+  display: block;
+  margin: 0;
+  padding: 0.8rem;
+  transition: box-shadow 125ms;
+}
+
+.grid.cards > :is(ul, ol) > li:focus-within,
+.grid.cards > :is(ul, ol) > li:hover,
+.grid > .card:focus-within,
+.grid > .card:hover {
+  box-shadow: var(--md-shadow-z2);
+}
+
+.grid.cards > :is(ul, ol) > li > hr,
+.grid > .card > hr {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.grid.cards > :is(ul, ol) > li > :first-child,
+.grid > .card > :first-child {
+  margin-top: 0;
+}
+
+.grid.cards > :is(ul, ol) > li > :last-child,
+.grid > .card > :last-child {
+  margin-bottom: 0;
+}
+
+/* Icon colors */
+.lg.middle {
+  font-size: 1.75em;
+  vertical-align: middle;
+  color: var(--md-primary-fg-color);
+}
+
+/* Button-like link */
+a.md-button {
+  margin-top: .5rem;
+  margin-right: .5rem;
+  color: var(--md-primary-fg-color);
+}
+
+a.md-button--primary {
+  background-color: var(--md-primary-fg-color);
+  border-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+/* Annotations */
+.md-annotation__index {
+  background-color: var(--md-primary-fg-color);
+}
+
+.md-annotation__index--active {
+  background-color: var(--md-accent-fg-color);
+}
+
+/* Code blocks */
+.md-typeset code {
+  border-radius: 0.2rem;
+}
+
+.md-typeset pre > code {
+  padding: 0.8em 1em;
+}
+
+.highlight code {
+  font-size: 0.85em;
+}
+
+/* Make headings prettier */
+.md-typeset h1 {
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.md-typeset h2 {
+  font-weight: 500;
+  margin-top: 2.5rem;
+}
+
+/* Enhance navigation */
+.md-nav__item .md-nav__link--active {
+  color: var(--md-primary-fg-color);
+  font-weight: 500;
+}
+
+/* Call to action section */
+.md-main__cta {
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  padding: 3rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.md-cta-content {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.md-cta-content h2 {
+  margin-top: 0;
+  color: var(--md-primary-bg-color) !important;
+}
+
+.md-cta-content .md-button {
+  background-color: white;
+  color: var(--md-primary-fg-color);
+  border-color: white;
+  margin: 0.5rem;
+}
+
+.md-cta-content .md-button--primary {
+  background-color: transparent;
+  color: white;
+  border-color: white;
+}
+
+/* Make logo bigger while maintaining tight spacing */
+.md-header__button.md-logo {
+  margin: 0 !important;
+  padding: 0.2rem !important;
+}
+
+.md-header__button.md-logo img, 
+.md-header__button.md-logo svg {
+  height: 2.4rem !important;
+  width: auto;
+}
+
+/* Make title text bigger */
+.md-header__title {
+  font-size: 1.4rem !important;
+  margin-left: -0.2rem !important; /* Negative margin to pull title closer to logo */
+  padding-left: 0 !important;
+}
+
+/* Force elements closer together */
+.md-header__inner {
+  align-items: center;
+  padding: 0 0.2rem !important;
+}
+
+/* Eliminate any possible spacing between elements */
+.md-header__button.md-logo + .md-header__title,
+.md-header__button.md-logo ~ .md-header__title,
+.md-header__ellipsis {
+  padding-left: 0 !important;
+  margin-left: -0.1rem !important; /* Fine-tune this value as needed */
+}
