@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {{ super() }}
+
+  <!-- Footer with call to action -->
+  {% if page.url_to_string == "index.html" or page.url_to_string == "index/" %}
+    <div class="md-main__cta">
+      <div class="md-grid">
+        <div class="md-cta-content">
+          <h2>Ready to get started?</h2>
+          <p>Install Oblix today and upgrade your AI application with intelligent model orchestration.</p>
+          
+            href="{{ 'getting-started/quickstart/' | url }}"
+            class="md-button md-button--primary"
+          >
+            Get started
+          </a>
+          
+            href="{{ 'api-reference/oblix-client/' | url }}"
+            class="md-button"
+          >
+            API Reference
+          </a>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
