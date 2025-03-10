@@ -1,9 +1,9 @@
 ```css
 :root {
-  --md-primary-fg-color: #233dff;
+  --md-primary-fg-color: #f5d76e;
   --md-primary-fg-color--light: #4c60ff;
   --md-primary-fg-color--dark: #0926d9;
-  --md-accent-fg-color: #233dff;
+  --md-accent-fg-color: #f5d76e;
   --md-accent-fg-color--transparent: rgba(35, 61, 255, 0.1);
 }
 
@@ -119,7 +119,10 @@ a.md-button--primary {
 
 /* Enhance navigation */
 .md-nav__item .md-nav__link--active {
-  color: var(--md-primary-fg-color);
+  color: #000;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
   font-weight: 500;
 }
 
