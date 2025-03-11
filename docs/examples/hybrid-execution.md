@@ -1,22 +1,22 @@
-# Hybrid Execution
+# Edge-Cloud Orchestration
 
-This page demonstrates how to implement hybrid execution strategies with Oblix, intelligently routing between local and cloud models based on system resources, connectivity, and other factors.
+This page demonstrates how to implement intelligent orchestration strategies with Oblix, seamlessly switching between edge and cloud models based on system resources, connectivity, and other factors.
 
-## What is Hybrid Execution?
+## What is Edge-Cloud Orchestration?
 
-Hybrid execution refers to the ability to seamlessly switch between:
+Edge-cloud orchestration refers to Oblix's ability to seamlessly switch between:
 
-- **Local models** (via Ollama) running on your own hardware
+- **Edge models** (via Ollama) running locally on your own hardware
 - **Cloud models** (via OpenAI, Claude) running on remote servers
 
 This approach combines the advantages of both:
 
-- **Local models**: Privacy, offline capability, no usage fees
+- **Edge models**: Privacy, offline capability, no usage fees
 - **Cloud models**: Higher capabilities, larger context windows, specialized features
 
-## Basic Hybrid Setup
+## Basic Orchestration Setup
 
-This example shows how to set up a basic hybrid system:
+This example shows how to set up a basic orchestration system:
 
 ```python
 import asyncio
@@ -33,7 +33,7 @@ async def main():
     oblix_api_key = os.getenv('OBLIX_API_KEY')
     client = OblixClient(oblix_api_key=oblix_api_key)
     
-    # Hook a local model
+    # Hook an edge model
     await client.hook_model(
         model_type=ModelType.OLLAMA,
         model_name="llama2",
@@ -48,22 +48,22 @@ async def main():
         api_key=openai_api_key
     )
     
-    # Add resource monitoring
+    # Add resource monitoring agent
     resource_monitor = ResourceMonitor(name="resource_monitor")
     client.hook_agent(resource_monitor)
     
-    # Add connectivity monitoring
+    # Add connectivity monitoring agent
     connectivity_monitor = ConnectivityAgent(name="connectivity_monitor")
     client.hook_agent(connectivity_monitor)
     
-    # Execute a prompt (Oblix will automatically choose the appropriate model)
+    # Execute a prompt (Oblix will automatically orchestrate between edge and cloud)
     response = await client.execute("Explain quantum computing in simple terms")
     
     print(f"Response from {response['model_id']}:")
     print(response["response"])
     
-    # Print agent check results
-    print("\nAgent check results:")
+    # Print orchestration decision information
+    print("\nOrchestration decisions:")
     for agent_name, check_result in response["agent_checks"].items():
         print(f"- {agent_name}: {check_result.get('state')}, target: {check_result.get('target')}")
     
@@ -79,9 +79,9 @@ if __name__ == "__main__":
         print(f"\nError: {e}")
 ```
 
-## Multi-Tier Model Strategy
+## Multi-Tier Orchestration Strategy
 
-For more sophisticated applications, you can implement a multi-tier model strategy:
+For more sophisticated applications, you can implement a multi-tier orchestration strategy:
 
 ```python
 import asyncio
@@ -98,14 +98,14 @@ async def main():
     oblix_api_key = os.getenv('OBLIX_API_KEY')
     client = OblixClient(oblix_api_key=oblix_api_key)
     
-    # Tier 1: Small local model (fast, low resources)
+    # Tier 1: Small edge model (fast, low resources)
     await client.hook_model(
         model_type=ModelType.OLLAMA,
         model_name="phi",  # or other small model
         endpoint="http://localhost:11434"
     )
     
-    # Tier 2: Medium local model (better quality, more resources)
+    # Tier 2: Medium edge model (better quality, more resources)
     await client.hook_model(
         model_type=ModelType.OLLAMA,
         model_name="llama2",
@@ -127,17 +127,17 @@ async def main():
         api_key=openai_api_key
     )
     
-    # Add monitoring agents
+    # Add monitoring agents for orchestration
     resource_monitor = ResourceMonitor(name="resource_monitor")
     connectivity_monitor = ConnectivityAgent(name="connectivity_monitor")
     client.hook_agent(resource_monitor)
     client.hook_agent(connectivity_monitor)
     
-    # Execute a simple prompt (likely routes to a lower tier)
+    # Execute a simple prompt (orchestration may select a lower tier)
     simple_response = await client.execute("What is the capital of France?")
     print(f"Simple query used: {simple_response['model_id']}")
     
-    # Execute a complex prompt (likely routes to a higher tier)
+    # Execute a complex prompt (orchestration may select a higher tier)
     complex_response = await client.execute(
         "Analyze the implications of quantum computing on modern cryptography, "
         "including potential vulnerabilities in RSA and elliptic curve systems."
@@ -156,9 +156,9 @@ if __name__ == "__main__":
         print(f"\nError: {e}")
 ```
 
-## Offline-First Implementation
+## Offline-First Orchestration
 
-This example prioritizes offline capability while falling back to cloud when necessary:
+This example prioritizes offline capability with edge models while seamlessly switching to cloud when necessary:
 
 ```python
 import asyncio
@@ -169,7 +169,7 @@ async def offline_first_app():
     # Initialize client
     client = OblixClient(oblix_api_key="your_oblix_api_key")
     
-    # Primary model: Local
+    # Primary model: Edge
     await client.hook_model(
         model_type=ModelType.OLLAMA,
         model_name="llama2"
@@ -184,7 +184,7 @@ async def offline_first_app():
     
     # Add connectivity monitoring
     connectivity_agent = ConnectivityAgent(
-        # Stricter thresholds to prefer local models
+        # Stricter thresholds to prefer edge models
         latency_threshold=100.0,       # Default is 200.0
         packet_loss_threshold=5.0,     # Default is 10.0
         bandwidth_threshold=10.0       # Default is 5.0
@@ -194,7 +194,7 @@ async def offline_first_app():
     # Add resource monitoring
     resource_monitor = ResourceMonitor(
         custom_thresholds={
-            # More lenient resource thresholds to prefer local models
+            # More lenient resource thresholds to prefer edge models
             "cpu_threshold": 90.0,     # Default is 80.0
             "memory_threshold": 90.0,  # Default is 85.0
         }
@@ -219,7 +219,7 @@ async def offline_first_app():
             print("Unable to process request. Working in emergency mode.")
     
     # Simple interactive loop
-    print("Offline-First AI Assistant (type 'exit' to quit)")
+    print("Offline-First AI Assistant with Edge-Cloud Orchestration (type 'exit' to quit)")
     while True:
         user_input = input("\nYou: ")
         if user_input.lower() == 'exit':
@@ -230,9 +230,9 @@ if __name__ == "__main__":
     asyncio.run(offline_first_app())
 ```
 
-## Performance-Optimized Hybrid
+## Performance-Optimized Orchestration
 
-This example optimizes for performance in a hybrid setup:
+This example optimizes for performance with intelligent edge-cloud orchestration:
 
 ```python
 import asyncio
@@ -243,7 +243,7 @@ async def performance_optimized_app():
     # Initialize client
     client = OblixClient(oblix_api_key="your_oblix_api_key")
     
-    # Fast local model for quick responses
+    # Fast edge model for quick responses
     await client.hook_model(
         model_type=ModelType.OLLAMA,
         model_name="phi"  # Small, fast model
@@ -256,7 +256,7 @@ async def performance_optimized_app():
         api_key="your_openai_api_key"
     )
     
-    # Add resource monitoring
+    # Add resource monitoring for edge execution decisions
     resource_monitor = ResourceMonitor()
     client.hook_agent(resource_monitor)
     
@@ -284,12 +284,12 @@ async def performance_optimized_app():
         task_type = classify_task_complexity(prompt)
         
         if task_type == "simple":
-            # For simple tasks, explicitly use the faster local model
-            print("Simple task detected, using local model for speed")
+            # For simple tasks, explicitly use the faster edge model
+            print("Simple task detected, using edge model for speed")
             response = await client.execute(prompt, model_id="ollama:phi")
         else:
-            # For complex tasks, let Oblix decide based on current conditions
-            print("Complex task detected, using intelligent routing")
+            # For complex tasks, let Oblix orchestrate based on current conditions
+            print("Complex task detected, using intelligent orchestration")
             response = await client.execute(prompt)
         
         print(f"Response from {response['model_id']}:")
@@ -319,9 +319,9 @@ if __name__ == "__main__":
     asyncio.run(performance_optimized_app())
 ```
 
-## Cost-Optimized Hybrid
+## Cost-Optimized Orchestration
 
-This example optimizes for cost in a hybrid setup:
+This example optimizes for cost with intelligent edge-cloud orchestration:
 
 ```python
 import asyncio
@@ -381,7 +381,7 @@ class CostOptimizationAgent(BaseAgent):
         budget_percentage = (self.daily_spend / self.daily_budget) * 100
         
         if budget_percentage > 90:
-            # Critical budget: force local models
+            # Critical budget: prioritize edge models
             return {
                 "proceed": True,
                 "state": "budget_critical",
@@ -394,7 +394,7 @@ class CostOptimizationAgent(BaseAgent):
                 }
             }
         elif budget_percentage > 70:
-            # High budget use: prefer local but allow cloud for complex tasks
+            # High budget use: prefer edge but allow cloud for complex tasks
             return {
                 "proceed": True,
                 "state": "budget_constrained",
@@ -431,8 +431,8 @@ async def cost_optimized_app():
     # Initialize client
     client = OblixClient(oblix_api_key="your_oblix_api_key")
     
-    # Hook models
-    # Tier 1: Free local model (no cost)
+    # Hook models for orchestration
+    # Tier 1: Free edge model (no cost)
     await client.hook_model(
         model_type=ModelType.OLLAMA,
         model_name="llama2"
@@ -470,12 +470,12 @@ async def cost_optimized_app():
     for query in test_queries:
         print(f"\n--- Query: {query}")
         
-        # Execute the query
+        # Execute the query with orchestration
         response = await client.execute(query)
         
         # Print model used and cost info
         model_id = response["model_id"]
-        print(f"Model used: {model_id}")
+        print(f"Model used by orchestration: {model_id}")
         
         # Update cost tracker with token usage
         metrics = response.get("metrics", {})
@@ -503,12 +503,12 @@ if __name__ == "__main__":
 
 ## Conclusion
 
-Hybrid execution with Oblix provides several key benefits:
+Edge-cloud orchestration with Oblix provides several key benefits:
 
 1. **Resilience**: Continue operation even without internet connectivity
-2. **Cost optimization**: Use free local models when possible, cloud models when necessary
-3. **Performance optimization**: Route to the most appropriate model based on the task
-4. **Privacy**: Keep sensitive prompts on local models
-5. **Adaptability**: Automatically adjust to changing conditions
+2. **Cost optimization**: Use free edge models when possible, cloud models when necessary
+3. **Performance optimization**: Intelligently switch to the most appropriate model based on the task
+4. **Privacy**: Keep sensitive prompts on edge models
+5. **Adaptability**: Seamlessly switch between models based on changing conditions
 
-By implementing these patterns, you can build AI applications that are more robust, cost-effective, and performant than those using only local or only cloud models.
+By implementing these patterns, you can build AI applications that are more robust, cost-effective, and performant than those using only edge or only cloud models.

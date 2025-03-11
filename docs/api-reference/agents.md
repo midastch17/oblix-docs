@@ -1,14 +1,24 @@
 # Agents
 
-Agents in Oblix are monitoring components that provide system awareness and make intelligent routing decisions. They analyze system resources, network connectivity, and other factors to help the SDK choose the optimal model for execution.
+Agents in Oblix are monitoring components that provide system awareness and make intelligent orchestration decisions. They analyze system resources, network connectivity, and other factors to help the SDK choose the optimal model for execution.
+
+## Agent Lifecycle
+
+Each agent in the Oblix system follows this lifecycle:
+
+1. **Initialization**: Configure the agent with thresholds and settings
+2. **Registration**: Hook the agent to the OblixClient
+3. **Monitoring**: Ongoing collection of metrics
+4. **Policy Evaluation**: Assessment of metrics against policies
+5. **Recommendation**: Providing execution target recommendations
 
 ## Available Agents
 
-Oblix provides two main types of monitoring agents:
+Oblix provides two main types of monitoring agents for orchestration:
 
 ### ResourceMonitor
 
-Monitors system resources including CPU, memory, and GPU utilization.
+Monitors system resources including CPU, memory, and GPU utilization to determine if local model execution is feasible.
 
 ```python
 from oblix.agents import ResourceMonitor
@@ -50,7 +60,7 @@ Based on resource state, the monitor recommends one of these execution targets:
 
 ### ConnectivityAgent
 
-Monitors network connectivity, including latency, packet loss, and bandwidth.
+Monitors network connectivity, including latency, packet loss, and bandwidth to determine if cloud model execution is viable.
 
 ```python
 from oblix.agents import ConnectivityAgent
@@ -87,6 +97,17 @@ Based on connectivity state, the agent recommends one of these targets:
 | `LOCAL` | Use local models due to connectivity issues |
 | `CLOUD` | Use cloud models due to good connectivity |
 | `HYBRID` | Consider balancing between local and cloud models |
+
+## Orchestration Process
+
+When working together, agents form a comprehensive orchestration system:
+
+1. **Resource Assessment**: The ResourceMonitor assesses whether local execution is viable
+2. **Connectivity Assessment**: The ConnectivityAgent determines if cloud models are accessible
+3. **Conflict Resolution**: When recommendations conflict, Oblix uses these priority rules:
+   - If resources are critically constrained but connectivity is good, prioritize resource constraints
+   - If connectivity is poor but resources are available, prioritize connectivity constraints
+   - In balanced scenarios, use policy-defined preferences
 
 ## Using Agents
 
@@ -125,3 +146,18 @@ The `agent_checks` dictionary contains information about:
 - Detailed metrics
 - Reasoning for the recommendation
 
+## Accessing Agent Metrics Directly
+
+You can also access the current metrics from agents directly:
+
+```python
+# Get resource metrics
+resource_metrics = await client.get_resource_metrics()
+print(f"CPU usage: {resource_metrics['cpu_percent']}%")
+
+# Get connectivity metrics
+connectivity_metrics = await client.get_connectivity_metrics()
+print(f"Current latency: {connectivity_metrics['latency']}ms")
+```
+
+This direct access is useful for monitoring and debugging orchestration behavior.

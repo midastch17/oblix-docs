@@ -8,27 +8,27 @@ hide:
 
 <div class="grid cards" markdown>
 
--   :fontawesome-solid-bolt:{ .lg .middle } __Seamless AI Orchestration__
+-   :fontawesome-solid-bolt:{ .lg .middle } __Intelligent AI Orchestration__
 
     ---
 
-    Intelligently route between local and cloud models based on connectivity, resources, and cost.
+    Seamlessly orchestrate between edge and cloud models based on connectivity, resources, and cost.
 
     [:octicons-arrow-right-24: Get started](getting-started/quickstart.md)
 
--   :material-swap-horizontal:{ .lg .middle } __Model Switching__
+-   :material-swap-horizontal:{ .lg .middle } __Seamless Model Switching__
 
     ---
 
-    Automatically switch between local Ollama models and cloud APIs like OpenAI and Claude.
+    Automatically switch between local edge models (Ollama) and cloud APIs (OpenAI, Claude) based on conditions.
 
     [:octicons-arrow-right-24: Model providers](providers/index.md)
 
--   :material-network:{ .lg .middle } __Connectivity Aware__
+-   :material-network:{ .lg .middle } __Connectivity Awareness__
 
     ---
 
-    Gracefully handle offline scenarios and degraded connections with intelligent fallbacks.
+    Gracefully handle offline scenarios and degraded connections with intelligent fallbacks between edge and cloud.
 
     [:octicons-arrow-right-24: How it works](core-concepts/index.md)
 
@@ -36,13 +36,12 @@ hide:
 
     ---
 
-    Route based on system resources to ensure optimal performance in any environment.
+    Dynamically orchestrate based on system resources to ensure optimal performance in any environment.
 
-    [:octicons-arrow-right-24: Resource monitoring](core-concepts/agents.md)
+    [:octicons-arrow-right-24: Agent monitoring](core-concepts/agents.md)
 
 </div>
 
 ## Installation
 
-```bash
-pip install oblix
+Download the Oblix installer (.dmg) from [Oblix AI](https://oblix.ai/download) and follow the [installation guide](getting-started/installation.md).

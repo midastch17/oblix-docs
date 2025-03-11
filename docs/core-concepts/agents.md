@@ -15,6 +15,8 @@ Agents run continuously in the background, ensuring the Oblix system always has 
 
 ## Built-in Agent Types
 
+Oblix currently provides two built-in agent types that work together to make intelligent orchestration decisions:
+
 ### ResourceMonitor
 
 The `ResourceMonitor` agent tracks system resource utilization, including:
@@ -159,6 +161,10 @@ The Oblix orchestration system follows this decision process:
 5. **Execution** - Runs the prompt on the selected model
 
 This orchestration flow ensures that your AI workloads run on the most appropriate model given the current system conditions.
+
+## Extensible Agent System
+
+Oblix's agent system is designed to be extensible and scalable. The architecture allows for additional agents to be integrated in the future, enhancing the orchestration capabilities while maintaining compatibility with existing code. As new monitoring needs emerge, the agent ecosystem can grow accordingly.
 
 ## Best Practices
 

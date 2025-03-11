@@ -4,13 +4,13 @@ Welcome to Oblix! This section will guide you through the process of installing 
 
 ## What is Oblix?
 
-Oblix is a comprehensive SDK for orchestrating AI models with automatic switching between local and cloud-based models. The SDK provides:
+Oblix is a comprehensive SDK for intelligent orchestration of AI models between edge and cloud environments. The SDK provides:
 
 - Unified interface for multiple AI model providers (OpenAI, Claude, Ollama)
-- Intelligent orchestration between local and cloud models
-- System resource monitoring and connectivity awareness
+- Intelligent orchestration that seamlessly switches between edge and cloud models
+- System resource monitoring and connectivity awareness through specialized agents
 - Persistent chat session management
-- Agent system for extensible monitoring and decision making
+- Agent system for extensible monitoring and orchestration decision making
 
 ## Installation
 
@@ -28,7 +28,7 @@ Before using Oblix, you'll need:
 1. **macOS** - Oblix currently only supports macOS
 2. **Oblix API Key** for authentication (see [Authentication](authentication.md))
 3. **Provider API Keys** for any cloud models you want to use
-4. **Ollama** installed if you want to use local models
+4. **Ollama** installed if you want to use local edge models
 
 ## Next Steps
 

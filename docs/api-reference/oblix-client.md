@@ -19,7 +19,7 @@ client = OblixClient(
 
 ### Hook Model
 
-Register a new AI model with the client.
+Register a new AI model with the client for orchestration.
 
 ```python
 async def hook_model(
@@ -33,7 +33,7 @@ async def hook_model(
 
 Example:
 ```python
-# Hook an Ollama model
+# Hook a local Ollama model
 await client.hook_model(
     model_type=ModelType.OLLAMA,
     model_name="llama2",
@@ -57,7 +57,7 @@ await client.hook_model(
 
 ### Hook Agent
 
-Register an agent with the client for monitoring and intelligent orchestration.
+Register an agent with the client for orchestration monitoring.
 
 ```python
 def hook_agent(
@@ -69,11 +69,15 @@ Example:
 ```python
 from oblix.agents import ResourceMonitor, ConnectivityAgent
 
-# Add resource monitoring
+# Add resource monitoring for orchestration
 client.hook_agent(ResourceMonitor())
 
-# Add connectivity monitoring
-client.hook_agent(ConnectivityAgent())
+# Add connectivity monitoring for orchestration
+client.hook_agent(ConnectivityAgent(
+    latency_threshold=150.0,       # Maximum acceptable latency in ms (default: 200.0)
+    packet_loss_threshold=5.0,     # Maximum acceptable packet loss percentage (default: 10.0)
+    bandwidth_threshold=10.0       # Minimum acceptable bandwidth in Mbps (default: 5.0)
+))
 ```
 
 ### Execute
@@ -119,7 +123,7 @@ response = await client.execute(
 
 ### Execute Streaming
 
-Execute a prompt with streaming output directly to the terminal.
+Execute a prompt with streaming output.
 
 ```python
 async def execute_streaming(
@@ -134,12 +138,12 @@ async def execute_streaming(
 
 Example:
 ```python
-# Stream a response
+# Stream a response with automatic orchestration
 response = await client.execute_streaming("Explain quantum computing")
 # Tokens are printed to the console in real-time, then final response returned
 ```
 
-### Chat
+### Chat Once
 
 Send a single message in a chat session with automatic session handling.
 
@@ -162,7 +166,7 @@ response = await client.chat_once("Tell me about yourself", session_id)
 
 ### Start Interactive Chat
 
-Start an interactive chat session in the terminal.
+Start an interactive chat session in the terminal with orchestration.
 
 ```python
 async def start_chat(
@@ -241,7 +245,7 @@ def delete_session(
 ) -> bool:                    # True if deleted successfully
 ```
 
-## Utility Methods
+## Monitoring and Orchestration Methods
 
 ### List Models
 
@@ -262,12 +266,31 @@ def get_model(
 ) -> dict:                    # Model configuration if found
 ```
 
+### Get Resource Metrics
+
+Get current resource metrics from the resource monitor agent.
+
+```python
+async def get_resource_metrics() -> dict:  # Dictionary of resource metrics
+```
+
 ### Get Connectivity Metrics
 
 Get current connectivity metrics from the connectivity monitor.
 
 ```python
 async def get_connectivity_metrics() -> dict:  # Dictionary of connectivity metrics
+```
+
+Example:
+```python
+# Check current connectivity for cloud model viability
+connectivity = await client.get_connectivity_metrics()
+print(f"Current latency: {connectivity['latency']}ms")
+
+# Check resource availability for local model execution
+resources = await client.get_resource_metrics()
+print(f"CPU usage: {resources['cpu_percent']}%")
 ```
 
 ### Shutdown

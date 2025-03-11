@@ -1,6 +1,6 @@
 # How Oblix Works
 
-Oblix is an AI model orchestration SDK that intelligently routes between local and cloud-based models based on connectivity, system resources, and other factors. This page explains the core architecture and concepts that power Oblix.
+Oblix is an AI model orchestration SDK that intelligently switches between edge (local) and cloud-based models based on connectivity, system resources, and other factors. This page explains the core architecture and concepts that power Oblix.
 
 ## Core Architecture
 
@@ -10,31 +10,31 @@ Oblix consists of several key components:
 
 1. **Client Interface** - The main entry point (`OblixClient`) that developers interact with
 2. **Model Management** - Handles various model types from different providers
-3. **Agent System** - Monitors system state and makes routing decisions
+3. **Agent System** - Monitors system state and makes orchestration decisions
 4. **Session Management** - Maintains persistent chat sessions
-5. **Execution Engine** - Orchestrates the execution flow between models
+5. **Orchestration Engine** - Manages the execution flow between edge and cloud models
 
-## Intelligent Routing
+## Intelligent Orchestration
 
-Oblix's intelligent routing system works by:
+Oblix's intelligent orchestration system works by:
 
 1. **Monitoring Resources** - Tracking CPU, memory, and GPU utilization
 2. **Checking Connectivity** - Monitoring network quality and availability  
-3. **Applying Policies** - Using configurable policies to make routing decisions
+3. **Applying Policies** - Using configurable policies to make orchestration decisions
 4. **Executing Actions** - Dynamically switching between models based on current conditions
 
-### Example Routing Scenarios
+### Example Orchestration Scenarios
 
-| Scenario | Resource State | Connectivity | Routing Decision |
+| Scenario | Resource State | Connectivity | Orchestration Decision |
 |----------|---------------|--------------|------------------|
-| Offline work | Available | Disconnected | Route to local Ollama model |
-| Limited bandwidth | Available | Degraded | Use smaller cloud model or local model |
-| Resource constrained | Constrained | Optimal | Route to cloud model |
-| Optimal conditions | Available | Optimal | Prefer local model for speed |
+| Offline work | Available | Disconnected | Switch to edge Ollama model |
+| Limited bandwidth | Available | Degraded | Use smaller cloud model or edge model |
+| Resource constrained | Constrained | Optimal | Switch to cloud model |
+| Optimal conditions | Available | Optimal | Prefer edge model for speed |
 
 ## Agent System
 
-Agents are pluggable components that monitor specific aspects of the system:
+Agents are pluggable components that monitor specific aspects of the system to enable orchestration:
 
 ### ResourceMonitor
 
@@ -59,7 +59,7 @@ The connectivity agent adapts to changing network conditions, ensuring reliabili
 
 Oblix provides a unified interface for working with different model types:
 
-- **Ollama Models** - Local models running via Ollama
+- **Ollama Models** - Edge models running locally
 - **OpenAI Models** - Cloud models from OpenAI (GPT series)
 - **Claude Models** - Cloud models from Anthropic (Claude series)
 
@@ -78,12 +78,12 @@ Oblix includes a built-in session management system that:
 - Enables multi-session workflows
 - Handles context management for stateful conversations
 
-## Execution Flow
+## Orchestration Flow
 
 When you execute a prompt with Oblix, here's what happens behind the scenes:
 
 1. **Pre-execution Checks** - All registered agents perform checks and make recommendations
-2. **Model Selection** - The system selects the optimal model based on agent recommendations
+2. **Orchestration Decision** - The system selects the optimal model based on agent recommendations
 3. **Context Retrieval** - If in a session, relevant context is loaded
 4. **Execution** - The prompt is sent to the selected model for processing
 5. **Metrics Collection** - Performance metrics are collected during execution

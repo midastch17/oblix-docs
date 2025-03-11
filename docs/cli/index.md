@@ -1,6 +1,6 @@
 # CLI Reference
 
-Oblix provides a powerful command-line interface (CLI) that enables you to interact with the Oblix AI Orchestration SDK directly from your terminal. This tool simplifies model management, agent integration, and testing.
+Oblix provides a powerful command-line interface (CLI) that enables you to interact with the Oblix AI Orchestration SDK directly from your terminal. This tool simplifies hybrid model orchestration between cloud and edge environments.
 
 ## Installation
 
@@ -26,15 +26,24 @@ The Oblix CLI follows this general structure:
 oblix [command] [subcommand] [options]
 ```
 
+## Orchestration Capabilities
+
+Oblix is designed specifically for orchestrating AI workloads between cloud and edge environments. Rather than running models in isolation, Oblix's CLI provides:
+
+- **Automatic orchestration** between local and cloud models based on resource availability and connectivity
+- **Dynamic routing** of prompts to the most appropriate model
+- **Monitoring agents** that continuously assess system state
+- **Seamless fallback** between models when conditions change
+
 ## Available Commands
 
 | Command | Description |
 |---------|-------------|
-| `models` | Manage and interact with AI models |
-| `agents` | Manage and interact with Oblix agents |
+| `models` | Manage and interact with AI models (both local and cloud) |
+| `agents` | Manage and interact with Oblix orchestration agents |
 | `sessions` | Manage chat sessions |
-| `execute` | Execute a single prompt |
-| `chat` | Start an interactive chat session |
+| `execute` | Execute a single prompt with orchestration |
+| `chat` | Start an interactive chat session with hybrid model orchestration |
 
 ## Authentication
 
@@ -61,7 +70,7 @@ These options are available for most commands:
 
 ## Models Commands
 
-Commands for managing AI models:
+Commands for managing AI models across cloud and edge:
 
 ### List Models
 
@@ -73,16 +82,16 @@ oblix models list
 
 ### Hook Model
 
-Add a new model to Oblix:
+Add a new model to the orchestration system:
 
 ```bash
-# Hook an Ollama model
+# Hook a local Ollama model
 oblix models hook --type ollama --name llama2
 
-# Hook an OpenAI model
+# Hook a cloud OpenAI model
 oblix models hook --type openai --name gpt-3.5-turbo --api-key-model YOUR_OPENAI_KEY
 
-# Hook a Claude model
+# Hook a cloud Claude model
 oblix models hook --type claude --name claude-3-haiku-20240307 --api-key-model YOUR_ANTHROPIC_KEY
 ```
 
@@ -96,11 +105,11 @@ oblix models info --type ollama --name llama2
 
 ## Agents Commands
 
-Commands for interacting with Oblix agents:
+Commands for interacting with Oblix orchestration agents:
 
 ### Connectivity
 
-Check current connectivity metrics:
+Check current connectivity metrics (critical for orchestration decisions):
 
 ```bash
 oblix agents connectivity
@@ -108,7 +117,7 @@ oblix agents connectivity
 
 ### Resource
 
-Perform a system resource check:
+Perform a system resource check (impacts model routing decisions):
 
 ```bash
 oblix agents resource
@@ -116,7 +125,7 @@ oblix agents resource
 
 ## Sessions Commands
 
-Commands for managing chat sessions:
+Commands for managing orchestrated chat sessions:
 
 ### List Sessions
 
@@ -150,37 +159,39 @@ Create a new chat session:
 oblix sessions create --title "My New Chat"
 ```
 
-## Execute and Chat Commands
+## Orchestrated Execution and Chat
 
-Execute a single prompt or start an interactive chat:
+Execute prompts with automatic orchestration between cloud and edge:
 
-### Execute a Prompt
+### Execute a Prompt with Orchestration
+
+Let Oblix decide which model to use based on system state:
 
 ```bash
 oblix execute "Explain quantum computing in simple terms"
 ```
 
-With specific model:
+With a specific model (bypassing orchestration):
 ```bash
 oblix execute "Explain quantum computing" --model "openai:gpt-3.5-turbo"
 ```
 
-### Start Interactive Chat
+### Start Interactive Chat with Hybrid Orchestration
 
-Start an interactive chat session with automatic model orchestration:
+Start an interactive chat session with automatic orchestration between cloud and edge models:
 
 ```bash
 oblix chat --local-model llama2 --cloud-model gpt-3.5-turbo
 ```
 
-With Claude:
+With Claude as the cloud model:
 ```bash
 oblix chat --local-model llama2 --cloud-model claude-3-haiku --cloud-api-key YOUR_ANTHROPIC_KEY
 ```
 
-## Examples
+## Orchestration Examples
 
-Here are some common use cases for the Oblix CLI:
+Here are some common orchestration use cases for the Oblix CLI:
 
 ### Setting Up Hybrid Model Orchestration
 
@@ -193,17 +204,17 @@ oblix models hook --type openai --name gpt-3.5-turbo --api-key-model YOUR_OPENAI
 oblix chat --local-model llama2 --cloud-model gpt-3.5-turbo
 ```
 
-### Checking System Status
+### Checking Orchestration System Status
 
 ```bash
-# Check system resource metrics
+# Check system resource metrics (affects local model selection)
 oblix agents resource
 
-# Check connectivity metrics
+# Check connectivity metrics (affects cloud model selection)
 oblix agents connectivity
 ```
 
-### Managing Sessions
+### Managing Orchestrated Sessions
 
 ```bash
 # List recent sessions
@@ -222,6 +233,7 @@ oblix execute "Research quantum computing papers" --session-id YOUR_SESSION_ID
 |----------|-------------|
 | `OBLIX_API_KEY` | Your Oblix API key |
 | `OPENAI_API_KEY` | Your OpenAI API key (used as default for OpenAI models) |
+| `ANTHROPIC_API_KEY` | Your Anthropic API key (used as default for Claude models) |
 
 ## Troubleshooting
 
@@ -232,5 +244,6 @@ If you encounter issues with the CLI:
 3. Enable debug logging with the `--debug` flag
 4. Verify that the Ollama server is running if using local models
 5. Confirm your Mac meets the system requirements (particularly for larger models)
+6. Check network connectivity if cloud models aren't responding
 
 For additional help, join the Oblix Discord community at [https://discord.gg/v8qtEVuU](https://discord.gg/v8qtEVuU).
