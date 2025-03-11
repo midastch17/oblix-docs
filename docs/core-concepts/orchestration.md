@@ -159,7 +159,7 @@ For chat sessions, Oblix maintains routing consistency when possible, to provide
 
 ```python
 # Start a chat session (routing decisions persist across messages)
-await client.start_chat()
+await client.chat_streaming()
 ```
 
 ### Multi-Model Execution

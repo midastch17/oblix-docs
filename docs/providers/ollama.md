@@ -83,28 +83,7 @@ For the most up-to-date list of available models, see the [Ollama model library]
 
 ## Using Ollama with Oblix
 
-### Basic Execution
-
-```python
-from oblix import OblixClient, ModelType
-
-# Initialize client
-client = OblixClient(oblix_api_key="your_oblix_api_key")
-
-# Hook Ollama model
-await client.hook_model(
-    model_type=ModelType.OLLAMA,
-    model_name="llama2"
-)
-
-# Execute prompt using Ollama
-response = await client.execute(
-    "Explain quantum computing in simple terms",
-    model_id="ollama:llama2"  # Optionally specify model
-)
-
-print(response["response"])
-```
+Ollama works best as part of a hybrid setup with Oblix, where you combine local and cloud models for optimal results. While it's technically possible to use just Ollama models, Oblix is designed to excel in orchestration scenarios where both local and cloud models are available.
 
 ### Hybrid Local-Cloud Setup with Ollama
 

@@ -20,31 +20,41 @@ This example shows how to set up a basic hybrid system:
 
 ```python
 import asyncio
+import os
+from dotenv import load_dotenv
 from oblix import OblixClient, ModelType
 from oblix.agents import ResourceMonitor, ConnectivityAgent
 
 async def main():
+    # Load environment variables from .env file
+    load_dotenv()
+    
     # Initialize client
-    client = OblixClient(oblix_api_key="your_oblix_api_key")
+    oblix_api_key = os.getenv('OBLIX_API_KEY')
+    client = OblixClient(oblix_api_key=oblix_api_key)
     
     # Hook a local model
     await client.hook_model(
         model_type=ModelType.OLLAMA,
-        model_name="llama2"
+        model_name="llama2",
+        endpoint="http://localhost:11434"  # Default Ollama endpoint
     )
     
     # Hook a cloud model
+    openai_api_key = os.getenv('OPENAI_API_KEY')
     await client.hook_model(
         model_type=ModelType.OPENAI,
         model_name="gpt-3.5-turbo",
-        api_key="your_openai_api_key"
+        api_key=openai_api_key
     )
     
     # Add resource monitoring
-    client.hook_agent(ResourceMonitor())
+    resource_monitor = ResourceMonitor(name="resource_monitor")
+    client.hook_agent(resource_monitor)
     
     # Add connectivity monitoring
-    client.hook_agent(ConnectivityAgent())
+    connectivity_monitor = ConnectivityAgent(name="connectivity_monitor")
+    client.hook_agent(connectivity_monitor)
     
     # Execute a prompt (Oblix will automatically choose the appropriate model)
     response = await client.execute("Explain quantum computing in simple terms")
@@ -56,9 +66,17 @@ async def main():
     print("\nAgent check results:")
     for agent_name, check_result in response["agent_checks"].items():
         print(f"- {agent_name}: {check_result.get('state')}, target: {check_result.get('target')}")
+    
+    # Clean up resources
+    await client.shutdown()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\nProgram interrupted by user. Exiting...")
+    except Exception as e:
+        print(f"\nError: {e}")
 ```
 
 ## Multi-Tier Model Strategy
@@ -67,42 +85,53 @@ For more sophisticated applications, you can implement a multi-tier model strate
 
 ```python
 import asyncio
+import os
+from dotenv import load_dotenv
 from oblix import OblixClient, ModelType
 from oblix.agents import ResourceMonitor, ConnectivityAgent
 
 async def main():
+    # Load environment variables from .env file
+    load_dotenv()
+    
     # Initialize client
-    client = OblixClient(oblix_api_key="your_oblix_api_key")
+    oblix_api_key = os.getenv('OBLIX_API_KEY')
+    client = OblixClient(oblix_api_key=oblix_api_key)
     
     # Tier 1: Small local model (fast, low resources)
     await client.hook_model(
         model_type=ModelType.OLLAMA,
-        model_name="phi"  # or other small model
+        model_name="phi",  # or other small model
+        endpoint="http://localhost:11434"
     )
     
     # Tier 2: Medium local model (better quality, more resources)
     await client.hook_model(
         model_type=ModelType.OLLAMA,
-        model_name="llama2"
+        model_name="llama2",
+        endpoint="http://localhost:11434"
     )
     
     # Tier 3: Standard cloud model (good quality, cost-effective)
+    openai_api_key = os.getenv('OPENAI_API_KEY')
     await client.hook_model(
         model_type=ModelType.OPENAI,
         model_name="gpt-3.5-turbo",
-        api_key="your_openai_api_key"
+        api_key=openai_api_key
     )
     
     # Tier 4: Advanced cloud model (highest quality, more expensive)
     await client.hook_model(
         model_type=ModelType.OPENAI,
         model_name="gpt-4",
-        api_key="your_openai_api_key"
+        api_key=openai_api_key
     )
     
     # Add monitoring agents
-    client.hook_agent(ResourceMonitor())
-    client.hook_agent(ConnectivityAgent())
+    resource_monitor = ResourceMonitor(name="resource_monitor")
+    connectivity_monitor = ConnectivityAgent(name="connectivity_monitor")
+    client.hook_agent(resource_monitor)
+    client.hook_agent(connectivity_monitor)
     
     # Execute a simple prompt (likely routes to a lower tier)
     simple_response = await client.execute("What is the capital of France?")
@@ -115,8 +144,16 @@ async def main():
     )
     print(f"Complex query used: {complex_response['model_id']}")
 
+    # Clean up resources
+    await client.shutdown()
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\nProgram interrupted by user. Exiting...")
+    except Exception as e:
+        print(f"\nError: {e}")
 ```
 
 ## Offline-First Implementation

@@ -104,18 +104,18 @@ Response structure:
 
 Example:
 ```python
-# Basic execution
+# Basic execution with automatic orchestration
 response = await client.execute("Explain quantum computing")
 print(response["response"])
 
-# Execution with specific model and parameters
+# You can also specify a particular model when needed
 response = await client.execute(
-    "Write a story about robots",
-    model_id="openai:gpt-3.5-turbo",
-    temperature=0.8,
-    max_tokens=500
+    "Explain quantum computing",
+    model_id="openai:gpt-3.5-turbo"
 )
 ```
+
+> **Note:** For Oblix to provide orchestration, you should hook at least one local model (Ollama), one cloud model (OpenAI/Claude), and the appropriate monitoring agents. You can still specify which model to use for specific requests via the `model_id` parameter.
 
 ### Execute Streaming
 

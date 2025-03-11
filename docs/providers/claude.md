@@ -40,29 +40,7 @@ Oblix supports all current Claude models:
 
 ## Using Claude with Oblix
 
-### Basic Execution
-
-```python
-from oblix import OblixClient, ModelType
-
-# Initialize client
-client = OblixClient(oblix_api_key="your_oblix_api_key")
-
-# Hook Claude model
-await client.hook_model(
-    model_type=ModelType.CLAUDE,
-    model_name="claude-3-opus-20240229",
-    api_key="your_anthropic_api_key"
-)
-
-# Execute prompt using Claude
-response = await client.execute(
-    "Explain quantum computing in simple terms",
-    model_id="claude:claude-3-opus-20240229"  # Optionally specify model
-)
-
-print(response["response"])
-```
+Oblix is designed for orchestration between local and cloud models. While Claude models are powerful, you'll get the most value from Oblix when combining them with local models in a hybrid setup for better resilience, latency, and cost management.
 
 ### Hybrid Local-Cloud Setup with Claude
 

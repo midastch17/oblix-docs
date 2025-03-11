@@ -45,29 +45,7 @@ Oblix supports most OpenAI models, including:
 
 ## Using OpenAI with Oblix
 
-### Basic Execution
-
-```python
-from oblix import OblixClient, ModelType
-
-# Initialize client
-client = OblixClient(oblix_api_key="your_oblix_api_key")
-
-# Hook OpenAI model
-await client.hook_model(
-    model_type=ModelType.OPENAI,
-    model_name="gpt-3.5-turbo",
-    api_key="your_openai_api_key"
-)
-
-# Execute prompt using OpenAI
-response = await client.execute(
-    "Explain quantum computing in simple terms",
-    model_id="openai:gpt-3.5-turbo"  # Optionally specify model
-)
-
-print(response["response"])
-```
+Oblix is designed for orchestration between local and cloud models. While it's technically possible to use just OpenAI models, you'll get the most value from Oblix when combining cloud capabilities with local models for more resilient and cost-effective AI applications.
 
 ### Hybrid Local-Cloud Setup with OpenAI
 

@@ -16,32 +16,38 @@ To use the Oblix SDK, you'll need to authenticate using an Oblix API key. This g
 
 There are two ways to provide your API key to the Oblix SDK:
 
-### 1. Direct Initialization
+### 1. Environment Variable (Recommended)
 
-Pass your API key directly when initializing the client:
+Set the `OBLIX_API_KEY` environment variable in a `.env` file:
+
+```bash
+# .env file
+OBLIX_API_KEY=your_api_key_here
+```
+
+Then load it in your code:
+
+```python
+import os
+from dotenv import load_dotenv
+from oblix import OblixClient
+
+# Load environment variables from .env file
+load_dotenv()
+
+# API key will be loaded from environment variable
+oblix_api_key = os.getenv('OBLIX_API_KEY')
+client = OblixClient(oblix_api_key=oblix_api_key)
+```
+
+### 2. Direct Initialization
+
+Alternatively, you can pass your API key directly when initializing the client (not recommended for production code):
 
 ```python
 from oblix import OblixClient
 
 client = OblixClient(oblix_api_key="your_api_key_here")
-```
-
-### 2. Environment Variable
-
-Set the `OBLIX_API_KEY` environment variable:
-
-```bash
-# macOS
-export OBLIX_API_KEY=your_api_key_here
-```
-
-Then initialize the client without specifying the API key:
-
-```python
-from oblix import OblixClient
-
-# API key will be automatically loaded from environment variable
-client = OblixClient()
 ```
 
 ## Provider API Keys
@@ -53,15 +59,22 @@ In addition to your Oblix API key, you'll need provider-specific API keys for an
 For using OpenAI models (like GPT-3.5 or GPT-4), you'll need to provide your OpenAI API key when hooking the model:
 
 ```python
+import os
+from dotenv import load_dotenv
 from oblix import OblixClient, ModelType
 
-client = OblixClient(oblix_api_key="your_oblix_api_key")
+# Load environment variables from .env file
+load_dotenv()
 
-# Hook an OpenAI model with your OpenAI API key
+oblix_api_key = os.getenv('OBLIX_API_KEY')
+client = OblixClient(oblix_api_key=oblix_api_key)
+
+# Hook an OpenAI model with your OpenAI API key from environment variable
+openai_api_key = os.getenv('OPENAI_API_KEY')
 await client.hook_model(
     model_type=ModelType.OPENAI,
     model_name="gpt-3.5-turbo",
-    api_key="your_openai_api_key"
+    api_key=openai_api_key
 )
 ```
 
@@ -70,15 +83,22 @@ await client.hook_model(
 For using Claude models, you'll need to provide your Anthropic API key:
 
 ```python
+import os
+from dotenv import load_dotenv
 from oblix import OblixClient, ModelType
 
-client = OblixClient(oblix_api_key="your_oblix_api_key")
+# Load environment variables from .env file
+load_dotenv()
 
-# Hook a Claude model with your Anthropic API key
+oblix_api_key = os.getenv('OBLIX_API_KEY')
+client = OblixClient(oblix_api_key=oblix_api_key)
+
+# Hook a Claude model with your Anthropic API key from environment variable
+anthropic_api_key = os.getenv('ANTHROPIC_API_KEY')
 await client.hook_model(
     model_type=ModelType.CLAUDE,
     model_name="claude-3-opus-20240229",
-    api_key="your_anthropic_api_key"
+    api_key=anthropic_api_key
 )
 ```
 
