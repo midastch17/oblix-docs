@@ -196,7 +196,9 @@ async def offline_first_app():
         custom_thresholds={
             # More lenient resource thresholds to prefer edge models
             "cpu_threshold": 90.0,     # Default is 80.0
-            "memory_threshold": 90.0,  # Default is 85.0
+            "memory_threshold": 90.0,  # Default is 85.0,
+            "gpu_threshold": 90.0,     # Default is 85.0
+            "critical_gpu": 95.0       # Default is 95.0
         }
     )
     client.hook_agent(resource_monitor)

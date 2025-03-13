@@ -42,6 +42,7 @@ Tracks system resources including:
 - CPU utilization and load
 - Memory availability
 - GPU availability and utilization
+- Real-time GPU metrics on macOS (utilization percentage and memory usage)
 
 Based on resource metrics, it recommends the optimal execution target (local CPU, local GPU, or cloud).
 

@@ -25,6 +25,7 @@ The `ResourceMonitor` agent tracks system resource utilization, including:
 - **Memory usage** - RAM utilization percentage
 - **System load** - Average system load over time
 - **GPU availability** - Presence and utilization of GPU resources
+- **GPU metrics** - Real-time GPU utilization and memory usage on macOS devices
 
 Based on these metrics, the ResourceMonitor recommends one of several execution targets:
 
@@ -123,7 +124,8 @@ resource_monitor = ResourceMonitor(
         "cpu_threshold": 70.0,     # CPU usage percentage (default: 80.0)
         "memory_threshold": 75.0,  # RAM usage percentage (default: 85.0)
         "load_threshold": 3.0,     # System load average (default: 4.0)
-        "gpu_threshold": 75.0      # GPU utilization percentage (default: 85.0)
+        "gpu_threshold": 75.0,     # GPU utilization percentage threshold (default: 85.0)
+        "critical_gpu": 90.0       # Critical GPU threshold (default: 95.0)
     }
 )
 ```
@@ -166,6 +168,40 @@ This orchestration flow ensures that your AI workloads run on the most appropria
 
 Oblix's agent system is designed to be extensible and scalable. The architecture allows for additional agents to be integrated in the future, enhancing the orchestration capabilities while maintaining compatibility with existing code. As new monitoring needs emerge, the agent ecosystem can grow accordingly.
 
+## GPU Monitoring on macOS
+
+Oblix provides enhanced GPU monitoring capabilities on macOS devices:
+
+- **Real-time GPU Utilization** - Live measurement of GPU processing load (0-100%)
+- **Memory Usage Tracking** - For Apple Silicon GPUs with unified memory
+- **No Sudo Required** - Works without elevated privileges (permissions handled during installation)
+- **Automatic Decision Making** - Routes to appropriate execution target based on GPU state
+
+### Accessing GPU Metrics
+
+You can access GPU metrics programmatically:
+
+```python
+# Get complete resource metrics
+resource_metrics = await client.get_resource_metrics()
+
+# Access GPU metrics
+if resource_metrics.get('gpu') and resource_metrics['gpu'].get('available'):
+    gpu_info = resource_metrics['gpu']
+    
+    # Check GPU utilization
+    if gpu_info.get('utilization') is not None:
+        print(f"GPU utilization: {gpu_info['utilization'] * 100:.2f}%")
+    
+    # Memory usage (Apple Silicon)
+    if gpu_info.get('memory_utilization') is not None:
+        print(f"GPU memory: {gpu_info['memory_utilization'] * 100:.2f}%")
+    
+    # Additional information
+    print(f"GPU name: {gpu_info.get('name', 'Unknown')}")
+    print(f"GPU type: {gpu_info.get('type', 'Unknown')}")
+```
+
 ## Best Practices
 
 When working with Oblix's agent-based orchestration:
@@ -175,5 +211,6 @@ When working with Oblix's agent-based orchestration:
 - **Monitor Performance** - Review agent recommendations over time
 - **Adjust Gradually** - Make small adjustments to thresholds based on observations
 - **Configure for Your Environment** - Tune thresholds based on your specific hardware capabilities
+- **Tune GPU Thresholds** - Adjust GPU thresholds based on your specific GPU model and workload requirements
 
 By leveraging Oblix's agent-based orchestration system effectively, you can build AI applications that intelligently adapt to changing conditions while optimizing for performance, cost, and reliability.

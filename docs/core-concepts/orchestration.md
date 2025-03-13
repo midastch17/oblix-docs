@@ -95,7 +95,8 @@ resource_monitor = ResourceMonitor(
         "cpu_threshold": 70.0,     # CPU usage percentage (default: 80.0)
         "memory_threshold": 75.0,  # RAM usage percentage (default: 85.0)
         "load_threshold": 3.0,     # System load average (default: 4.0)
-        "gpu_threshold": 75.0      # GPU utilization percentage (default: 85.0)
+        "gpu_threshold": 75.0,     # GPU utilization percentage (default: 85.0)
+        "critical_gpu": 90.0       # Critical GPU threshold (default: 95.0)
     }
 )
 ```

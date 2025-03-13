@@ -18,7 +18,7 @@ Oblix provides two main types of monitoring agents for orchestration:
 
 ### ResourceMonitor
 
-Monitors system resources including CPU, memory, and GPU utilization to determine if local model execution is feasible.
+Monitors system resources including CPU, memory, and GPU utilization to determine if local model execution is feasible. On macOS, it can now collect detailed GPU metrics including real-time utilization and memory usage without requiring sudo privileges.
 
 ```python
 from oblix.agents import ResourceMonitor
@@ -33,7 +33,8 @@ resource_monitor = ResourceMonitor(
         "cpu_threshold": 70.0,     # CPU usage percentage (default: 80.0)
         "memory_threshold": 75.0,  # RAM usage percentage (default: 85.0)
         "load_threshold": 3.0,     # System load average (default: 4.0)
-        "gpu_threshold": 75.0      # GPU utilization percentage (default: 85.0)
+        "gpu_threshold": 75.0,     # GPU utilization percentage (default: 85.0)
+        "critical_gpu": 90.0       # Critical GPU threshold (default: 95.0)
     }
 )
 ```
@@ -154,6 +155,15 @@ You can also access the current metrics from agents directly:
 # Get resource metrics
 resource_metrics = await client.get_resource_metrics()
 print(f"CPU usage: {resource_metrics['cpu_percent']}%")
+
+# Access GPU metrics on macOS
+if resource_metrics.get('gpu') and resource_metrics['gpu'].get('available'):
+    gpu_info = resource_metrics['gpu']
+    if gpu_info.get('utilization') is not None:
+        print(f"GPU utilization: {gpu_info['utilization'] * 100:.2f}%")
+    if gpu_info.get('memory_utilization') is not None:
+        print(f"GPU memory utilization: {gpu_info['memory_utilization'] * 100:.2f}%")
+    print(f"GPU name: {gpu_info.get('name', 'Unknown')}")
 
 # Get connectivity metrics
 connectivity_metrics = await client.get_connectivity_metrics()
