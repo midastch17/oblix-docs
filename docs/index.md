@@ -44,4 +44,10 @@ hide:
 
 ## Installation
 
-Download the Oblix installer (.dmg) from [Oblix AI](https://oblix.ai/download) and follow the [installation guide](getting-started/installation.md).
+Install Oblix using pip:
+
+```bash
+pip install oblix
+```
+
+See the complete [installation guide](getting-started/installation.md) for more details.

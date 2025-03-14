@@ -4,12 +4,19 @@ Get started with Oblix, an AI orchestration SDK for seamless switching between l
 
 ## Installation
 
-1. Download the Oblix installer (.dmg) from [Oblix AI](https://oblixai.com/download)
-2. Open the .dmg file
-3. Drag the Oblix application to your Applications folder
-4. Launch Oblix to complete the installation
+Install Oblix using pip:
 
-**Note:** Oblix is currently available for macOS only.
+```bash
+pip install oblix
+```
+
+You can also install for a specific Python version:
+
+```bash
+python3.11 -m pip install oblix
+```
+
+**Note:** Oblix is currently available for macOS only. Supported Python versions: 3.9, 3.10, 3.11, 3.12, 3.13.
 
 ## Prerequisites
 

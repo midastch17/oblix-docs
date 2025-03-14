@@ -4,9 +4,13 @@ Oblix provides a powerful command-line interface (CLI) that enables you to inter
 
 ## Installation
 
-The Oblix CLI is included with the main Oblix SDK package when you download and install it from [oblix.ai](https://oblix.ai).
+The Oblix CLI is included with the main Oblix SDK package when you install it via pip:
 
-> **Note:** Currently, Oblix only supports macOS. Windows and Linux versions are planned for future releases.
+```bash
+pip install oblix
+```
+
+> **Note:** Currently, Oblix only supports macOS. Windows and Linux versions are planned for future releases. Supported Python versions: 3.9, 3.10, 3.11, 3.12, 3.13.
 
 ## Basic Usage
 

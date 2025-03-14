@@ -5,44 +5,34 @@ This guide walks you through the process of installing Oblix on your macOS syste
 ## System Requirements
 
 - **Operating System**: macOS 11 (Big Sur) or newer
+- **Python Versions**: 3.9, 3.10, 3.11, 3.12, 3.13
 - **Storage**: 800 MB of free disk space
 - **Memory**: 8 GB RAM recommended
 - **Internet Connection**: Required for cloud model access
 
-## Installation Steps
+## Installation with pip
 
-1. **Download the Installer**: 
-   - Visit [Oblix AI](https://oblix.ai)
-   - Download the latest Oblix installer (.dmg file)
+The recommended way to install Oblix is using pip:
 
-2. **Open the Installer**:
-   - Locate the downloaded .dmg file in your Downloads folder
-   - Double-click the .dmg file to mount it
-   - A new Finder window will open showing the Oblix application and Applications folder
+```bash
+pip install oblix
+```
 
-3. **Install Oblix**:
-   - Drag the Oblix application icon to the Applications folder
-   - Close the installer window
+For a specific Python version (if you have multiple Python versions installed):
 
-4. **Run Oblix for the First Time**:
-   - Navigate to your Applications folder
-   - Double-click the Oblix application
-   - macOS may display a security warning the first time you open it
-   - Click "Open" if prompted
+```bash
+python3.11 -m pip install oblix
+```
 
-5. **Complete Installation**:
-   - You'll be prompted to enter your system password
-   - This is required to install necessary components
-   - After entering your password, the installation will complete
-   - You should see a confirmation message that Oblix has been successfully installed
+### Verify Installation
 
-6. **Verify Installation**:
-   - Open Terminal
-   - Run the following command to verify Oblix is properly installed:
-     ```bash
-     oblix --version
-     ```
-   - You should see the current version of Oblix displayed
+After installation, verify that Oblix is properly installed:
+
+```bash
+oblix --version
+```
+
+You should see the current version of Oblix displayed.
 
 ## Using Oblix
 
@@ -89,6 +79,19 @@ You can also provide API keys directly in commands:
 oblix chat --local-model llama2 --cloud-model gpt-3.5-turbo --cloud-api-key "your_api_key_here"
 ```
 
+### Virtual Environment (Recommended)
+
+It's recommended to install Oblix in a virtual environment:
+
+```bash
+# Create and activate virtual environment
+python -m venv oblix-env
+source oblix-env/bin/activate  # On Windows: oblix-env\Scripts\activate
+
+# Install Oblix
+pip install oblix
+```
+
 ## Installing Ollama (Required for Local Models)
 
 To use local models with Oblix, you'll need to install Ollama:
@@ -104,14 +107,14 @@ To use local models with Oblix, you'll need to install Ollama:
 
 ### Common Issues
 
-**Issue**: "Oblix can't be opened because it is from an unidentified developer"
-**Solution**: Go to System Preferences > Security & Privacy > General, and click "Open Anyway"
-
 **Issue**: Command not found when trying to use Oblix in Terminal
-**Solution**: Make sure the installation completed successfully. You might need to restart your Terminal or add Oblix to your PATH.
+**Solution**: Make sure the installation completed successfully. You might need to restart your Terminal or add the Python scripts directory to your PATH.
 
-**Issue**: System password prompt appears multiple times
-**Solution**: This is normal behavior if you cancel the password prompt. Enter your password to continue installation.
+**Issue**: Permission error during installation
+**Solution**: Try installing with `pip install --user oblix` or use a virtual environment.
+
+**Issue**: Import errors after installation
+**Solution**: Ensure you're using a supported Python version (3.9, 3.10, 3.11, 3.12, or 3.13).
 
 ### Getting Help
 
@@ -124,10 +127,18 @@ If you encounter issues during installation:
 
 To uninstall Oblix:
 
-1. Open Applications folder in Finder
-2. Drag Oblix to the Trash
-3. Empty the Trash
-4. Optional: Remove configuration files with:
-   ```bash
-   rm -rf ~/.oblix
-   ```
+### Pip Installation
+
+If you installed Oblix using pip:
+
+```bash
+pip uninstall oblix
+```
+
+### Configuration Files
+
+To remove configuration files (optional):
+
+```bash
+rm -rf ~/.oblix
+```

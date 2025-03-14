@@ -6,12 +6,11 @@ This page provides basic examples to help you get started with Oblix. These exam
 
 Oblix is available exclusively for macOS at this time:
 
-1. Download the Oblix installer (.dmg) from [Oblix AI](https://oblixai.com/download)
-2. Open the .dmg file
-3. Drag the Oblix application to your Applications folder
-4. Launch Oblix to complete the installation
+```bash
+pip install oblix
+```
 
-> **Note:** Currently, only macOS is supported. Windows and Linux versions are planned for future releases.
+> **Note:** Currently, only macOS is supported. Windows and Linux versions are planned for future releases. Oblix supports Python versions 3.9, 3.10, 3.11, 3.12, and 3.13.
 
 ## Prerequisites
 
