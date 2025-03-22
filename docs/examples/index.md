@@ -59,4 +59,4 @@ For more comprehensive examples and sample applications, visit our [GitHub examp
 
 ## Contributing
 
-Have you built something interesting with Oblix? We'd love to feature your example! Submit a pull request to our examples repository or reach out to us at examples@oblixai.com.
+Have you built something interesting with Oblix? We'd love to feature your example! Submit a pull request to our examples repository or reach out to us at examples@oblix.ai.

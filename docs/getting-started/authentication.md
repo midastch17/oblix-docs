@@ -4,7 +4,7 @@ To use the Oblix SDK, you'll need to authenticate using an Oblix API key. This g
 
 ## Getting an API Key
 
-1. Create an account at [Oblix AI](https://oblixai.com)
+1. Create an account at [Oblix AI](https://oblix.ai)
 2. Navigate to the API Keys section in your dashboard
 3. Click "Create New API Key"
 4. Copy your new API key to a secure location
