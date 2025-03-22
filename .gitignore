@@ -1,1 +1,6 @@
 .vercel
+site
+# MkDocs build files
+site/
+__pycache__/
+.cache/
