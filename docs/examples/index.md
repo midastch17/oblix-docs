@@ -8,6 +8,7 @@ Start with these examples to learn the fundamentals of Oblix:
 
 - [Basic Usage](basic-usage.md): Simple examples to get started with Oblix
 - [Hybrid Execution](hybrid-execution.md): Examples of combining local and cloud models
+- [Advanced Session Management](session-management-advanced.md): Using metadata, import/export, and more
 
 ## Use Cases
 

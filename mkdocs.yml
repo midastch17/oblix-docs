@@ -106,6 +106,7 @@ nav:
       - Overview: examples/index.md
       - Basic Usage: examples/basic-usage.md
       - Hybrid Execution: examples/hybrid-execution.md
+      - Advanced Session Management: examples/session-management-advanced.md
     - CLI Reference: 
       - Overview: cli/index.md
     

@@ -206,19 +206,43 @@ Create a new chat session.
 
 ```python
 async def create_session(
-    title: str = None,         # Optional session title
-    initial_context: dict = None # Optional initial context
-) -> str:                      # New session ID
+    title: str = None,           # Optional session title
+    initial_context: dict = None, # Optional initial context
+    metadata: dict = None        # Optional metadata for categorization
+) -> str:                        # New session ID
+```
+
+### Create and Use Session
+
+Create a new chat session and automatically set it as the current session.
+
+```python
+async def create_and_use_session(
+    title: str = None,           # Optional session title
+    initial_context: dict = None, # Optional initial context
+    metadata: dict = None        # Optional metadata for categorization
+) -> str:                        # New session ID (already set as current)
+```
+
+### Use Session
+
+Set an existing session as the current active session.
+
+```python
+def use_session(
+    session_id: str              # Session identifier
+) -> bool:                       # True if session was activated
 ```
 
 ### List Sessions
 
-List recent chat sessions.
+List recent chat sessions with optional metadata filtering.
 
 ```python
 def list_sessions(
-    limit: int = 50           # Maximum number of sessions to return
-) -> list:                    # List of session metadata dictionaries
+    limit: int = 50,             # Maximum number of sessions to return
+    filter_metadata: dict = None # Optional filter by metadata fields
+) -> list:                       # List of session metadata dictionaries
 ```
 
 ### Load Session
@@ -227,8 +251,8 @@ Load a specific chat session by ID.
 
 ```python
 def load_session(
-    session_id: str           # Session identifier
-) -> dict:                    # Session data if found, None otherwise
+    session_id: str              # Session identifier
+) -> dict:                       # Session data if found, None otherwise
 ```
 
 ### Delete Session
@@ -237,8 +261,76 @@ Delete a chat session permanently.
 
 ```python
 def delete_session(
-    session_id: str           # Session identifier
-) -> bool:                    # True if deleted successfully
+    session_id: str              # Session identifier
+) -> bool:                       # True if deleted successfully
+```
+
+### Update Session Metadata
+
+Update or add metadata to a session.
+
+```python
+def update_session_metadata(
+    session_id: str,             # Session identifier
+    metadata: dict               # Metadata fields to update or add
+) -> bool:                       # True if metadata was updated
+```
+
+### Get Session Metadata
+
+Get metadata for a specific session without loading the entire content.
+
+```python
+def get_session_metadata(
+    session_id: str              # Session identifier
+) -> dict:                       # Session metadata if found
+```
+
+### Export Session
+
+Export a session to a file for sharing or backup.
+
+```python
+async def export_session(
+    session_id: str,             # Session identifier
+    export_path: str             # Path to save the exported session
+) -> bool:                       # True if export was successful
+```
+
+### Import Session
+
+Import a session from a file.
+
+```python
+async def import_session(
+    import_path: str,            # Path to the JSON file to import
+    new_id: bool = True,         # Assign a new ID to avoid conflicts
+    use_immediately: bool = False # Set as current session after import
+) -> str:                        # Session ID of the imported session
+```
+
+### Copy Session
+
+Create a copy of an existing session with a new ID.
+
+```python
+async def copy_session(
+    session_id: str,             # Session identifier to copy
+    new_title: str = None,       # Optional new title for the copy
+    use_immediately: bool = False # Set as current session after copy
+) -> str:                        # ID of the new copy
+```
+
+### Merge Sessions
+
+Combine multiple sessions into a new session with unified history.
+
+```python
+async def merge_sessions(
+    source_ids: list,            # List of session IDs to merge
+    title: str = None,           # Optional title for merged session
+    use_immediately: bool = False # Set as current session after merge
+) -> str:                        # ID of the merged session
 ```
 
 ## Monitoring and Orchestration Methods
