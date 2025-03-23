@@ -132,23 +132,27 @@ This transparency helps you understand why specific routing decisions were made 
 
 ## Fallback Mechanisms
 
-If a preferred model is unavailable or fails, Oblix includes fallback mechanisms:
+All orchestration decisions are handled by the ExecutionManager component, which ensures consistent behavior across different execution methods. When determining the optimal model, the ExecutionManager follows these fallback steps:
 
-1. **Primary execution attempt** with the optimal model
-2. **Fallback to alternative models** if the primary fails
-3. **Degraded mode operation** when connectivity is limited
+1. If **disconnected from the internet**, always use local models (Ollama)
+2. If **system resources are constrained**, prefer cloud models (OpenAI/Claude) 
+3. If **connectivity is optimal**, consider any model type based on target preferences
+4. If no specific recommendation exists, fall back to the first available model
 
-This ensures robustness even in challenging environments.
+This centralized decision logic ensures robustness and predictable behavior even in challenging environments.
 
 ## Advanced Orchestration Features
 
 ### Fully Automatic Routing
 
-Oblix's orchestration system is now fully automatic. The system will select the optimal model based on:
+Oblix's orchestration system is now fully automatic. The ExecutionManager selects the optimal model based on the following priority order:
 
-1. Connectivity state (highest priority)
-2. Resource availability (second priority)
-3. Available models
+1. Connectivity state (highest priority, especially DISCONNECTED state)
+2. Resource constraints (second priority)
+3. Connectivity target preferences 
+4. First available model (fallback)
+
+This priority ordering ensures consistent behavior across all execution methods (`execute`, `execute_streaming`, and `chat_streaming`).
 
 ```python
 # Oblix automatically chooses the best model based on system conditions
