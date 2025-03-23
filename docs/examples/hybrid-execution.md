@@ -64,8 +64,19 @@ async def main():
     
     # Print orchestration decision information
     print("\nOrchestration decisions:")
-    for agent_name, check_result in response["agent_checks"].items():
-        print(f"- {agent_name}: {check_result.get('state')}, target: {check_result.get('target')}")
+    if "routing_decision" in response:
+        for decision_type, details in response["routing_decision"].items():
+            print(f"- {decision_type}: {details.get('state')}, target: {details.get('target')}")
+    elif "agent_checks" in response:
+        # Handle both list and dict formats for backward compatibility
+        if isinstance(response["agent_checks"], dict):
+            for agent_name, check_result in response["agent_checks"].items():
+                print(f"- {agent_name}: {check_result.get('state')}, target: {check_result.get('target')}")
+        elif isinstance(response["agent_checks"], list):
+            for check in response["agent_checks"]:
+                agent_name = check.get("agent", "unknown")
+                result = check.get("result", {})
+                print(f"- {agent_name}: {result.get('state')}, target: {result.get('target')}")
     
     # Clean up resources
     await client.shutdown()

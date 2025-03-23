@@ -101,15 +101,30 @@ When you execute a prompt, all registered agents perform checks to inform the or
 response = await client.execute("Explain quantum computing")
 
 # Orchestration decisions are included in the response
-agent_checks = response["agent_checks"]
+routing_decision = response["routing_decision"]  # Overall orchestration decisions
+agent_checks = response["agent_checks"]          # Detailed agent results
 ```
 
-The `agent_checks` dictionary contains detailed information about:
+The `routing_decision` dictionary contains high-level orchestration decisions, while `agent_checks` contains detailed information from each agent:
 
 - Current system state assessments
 - Recommended execution targets
 - Specific metrics collected
 - Reasoning for orchestration decisions
+
+Note that `agent_checks` is a list of dictionaries, with each dictionary containing:
+```python
+{
+    "agent": "resource_monitor",     # Name of the agent
+    "result": {                      # Agent check results
+        "proceed": True,             # Whether the execution should proceed
+        "state": "available",        # Current state detected
+        "target": "local_gpu",       # Recommended target
+        "reason": "Resources available",  # Reasoning
+        "metrics": { ... }           # Detailed metrics
+    }
+}
+```
 
 ## Customizing Agent Behavior
 

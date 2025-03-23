@@ -102,7 +102,8 @@ Response structure:
     "model_id": str,           # ID of model used for generation
     "response": str,           # Generated text response
     "metrics": dict,           # Performance metrics
-    "agent_checks": dict       # Results from agent checks
+    "routing_decision": dict,  # Orchestration decisions
+    "agent_checks": list       # Results from agent checks (list of dicts)
 }
 ```
 

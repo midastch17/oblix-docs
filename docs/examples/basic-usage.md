@@ -214,6 +214,42 @@ response = await client.execute(
 )
 ```
 
+## Streaming Generation
+
+For real-time streaming of tokens as they're generated:
+
+```python
+import asyncio
+from oblix import OblixClient, ModelType
+from oblix.agents import ResourceMonitor, ConnectivityAgent
+
+async def main():
+    client = OblixClient(oblix_api_key="your_oblix_api_key")
+    
+    # Hook models for orchestration
+    await client.hook_model(ModelType.OLLAMA, "llama2")
+    await client.hook_model(
+        ModelType.OPENAI, 
+        "gpt-3.5-turbo", 
+        api_key="your_openai_api_key"
+    )
+    
+    # Add monitoring agents
+    client.hook_agent(ResourceMonitor())
+    client.hook_agent(ConnectivityAgent())
+    
+    # Stream a response with automatic orchestration
+    # Tokens are printed to the console in real-time
+    response = await client.execute_streaming("Write a short poem about AI")
+    
+    print(f"\nModel used: {response['model_id']}")
+    
+    await client.shutdown()
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
 ## Working with Sessions
 
 Create and use sessions for conversational interactions with orchestration:
@@ -422,8 +458,19 @@ async def main():
         
         # Print orchestration decision information
         print("\nOrchestration decisions:")
-        for agent_name, check_result in response2["agent_checks"].items():
-            print(f"- {agent_name}: {check_result.get('state')}, target: {check_result.get('target')}")
+        if "routing_decision" in response2:
+            for decision_type, details in response2["routing_decision"].items():
+                print(f"- {decision_type}: {details.get('state')}, target: {details.get('target')}")
+        elif "agent_checks" in response2:
+            # Handle both list and dict formats for backward compatibility
+            if isinstance(response2["agent_checks"], dict):
+                for agent_name, check_result in response2["agent_checks"].items():
+                    print(f"- {agent_name}: {check_result.get('state')}, target: {check_result.get('target')}")
+            elif isinstance(response2["agent_checks"], list):
+                for check in response2["agent_checks"]:
+                    agent_name = check.get("agent", "unknown")
+                    result = check.get("result", {})
+                    print(f"- {agent_name}: {result.get('state')}, target: {result.get('target')}")
         
     except Exception as e:
         print(f"Error: {e}")
