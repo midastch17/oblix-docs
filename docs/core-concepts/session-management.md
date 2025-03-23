@@ -385,6 +385,95 @@ print(f"Average messages per session: {avg_messages:.1f}")
 print(f"Resolution rate: {resolution_rate:.1%}")
 ```
 
+## Event Loop Management
+
+When building applications with Oblix sessions, proper event loop management is critical for stability, especially in long-running applications like chatbots. Here are key considerations:
+
+### Event Loop Lifecycle
+
+```python
+# For scripts that start and finish:
+async def main():
+    # Initialize client
+    client = OblixClient(oblix_api_key="your_api_key")
+    try:
+        # Set up models
+        await client.hook_model(...)
+        
+        # Use sessions
+        session_id = await client.create_session(...)
+        await client.execute("Your message here")
+        
+    finally:
+        # Always clean up resources
+        await client.shutdown()
+        
+if __name__ == "__main__":
+    asyncio.run(main())  # Creates and manages the event loop
+```
+
+### Web Applications
+
+For web applications with persistent sessions:
+
+```python
+# Initialize once at application startup
+client = OblixClient(oblix_api_key="your_api_key")
+
+# In your initialization function (run at startup)
+async def init_client():
+    await client.hook_model(...)
+    # Other setup
+
+# In API routes or handlers
+async def handle_chat_message(user_message, session_id=None):
+    if not session_id:
+        session_id = await client.create_session(...)
+    client.use_session(session_id)
+    result = await client.execute(user_message)
+    return result, session_id
+
+# On application shutdown (very important!)
+async def shutdown():
+    await client.shutdown()
+```
+
+### Handling Long-lived Sessions
+
+For applications where sessions remain open for extended periods:
+
+1. **Avoid creating/destroying clients** for each request - initialize once
+2. **Be mindful of concurrent requests** - ensure thread safety
+3. **Implement proper cleanup** on application shutdown
+4. **Monitor for resource leaks** in long-running applications
+
+### Common Issues and Solutions
+
+1. **"Event loop is closed" errors**:
+   - Ensure you're not trying to use a client after calling `shutdown()`
+   - Avoid creating nested event loops
+   
+2. **Lingering connections**:
+   - The `client.shutdown()` method should clean up connections
+   - For exceptional cases, add the cleanup pattern from examples:
+
+```python
+# More thorough cleanup for lingering aiohttp sessions
+try:
+    await client.shutdown()
+except Exception as e:
+    print(f"Warning during shutdown: {str(e)}")
+    
+# Force cleanup of lingering sessions if needed
+import asyncio
+import aiohttp
+await asyncio.sleep(0.1)  # Allow cleanup tasks to complete
+for session in [obj for obj in asyncio.all_tasks() 
+               if isinstance(getattr(obj, '_coro', None), aiohttp.ClientSession)]:
+    if not session.done():
+        session.cancel()
+```
+
 ## Best Practices
 
 When working with sessions:
@@ -397,6 +486,9 @@ When working with sessions:
 - **Monitor session length** for very long conversations
 - **Consider model consistency** when choosing models for sessions
 - **Use session templates** for common conversation patterns
+- **Always call `client.shutdown()`** when closing your application
+- **Initialize the client once** for long-running applications
+- **Handle event loop lifecycle** appropriately for your application type
 
 By effectively using Oblix's enhanced session management capabilities, you can build sophisticated conversational AI applications that maintain context, organize interactions, and provide a seamless user experience.
 
