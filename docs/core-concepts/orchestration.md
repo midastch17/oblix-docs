@@ -142,35 +142,38 @@ This ensures robustness even in challenging environments.
 
 ## Advanced Orchestration Features
 
-### Model-Specific Routing
+### Fully Automatic Routing
 
-You can override automatic routing for specific prompts:
+Oblix's orchestration system is now fully automatic. The system will select the optimal model based on:
+
+1. Connectivity state (highest priority)
+2. Resource availability (second priority)
+3. Available models
 
 ```python
-# Force execution with a specific model
-response = await client.execute(
-    "Explain quantum computing",
-    model_id="openai:gpt-4"
-)
+# Oblix automatically chooses the best model based on system conditions
+response = await client.execute("Explain quantum computing")
 ```
 
 ### Session-Based Routing
 
-For chat sessions, Oblix maintains routing consistency when possible, to provide a seamless experience:
+For chat sessions, Oblix makes independent routing decisions for each message based on current system conditions:
 
 ```python
-# Start a chat session (routing decisions persist across messages)
+# Start a chat session (routing decisions are made for each message)
 await client.chat_streaming()
 ```
 
-### Multi-Model Execution
+### Multiple Model Registration
 
-For critical applications, you can implement multi-model execution strategies:
+You can register multiple models and let Oblix's orchestration decide which to use:
 
 ```python
-# Execute with multiple models and compare results
-response1 = await client.execute("Explain quantum computing", model_id="openai:gpt-4")
-response2 = await client.execute("Explain quantum computing", model_id="claude:claude-3-opus-20240229")
+# Register different models - Oblix's orchestration will choose the right one
+await client.hook_model(ModelType.OLLAMA, "mistral")
+await client.hook_model(ModelType.OLLAMA, "llama2")
+await client.hook_model(ModelType.OPENAI, "gpt-3.5-turbo")
+await client.hook_model(ModelType.OPENAI, "gpt-4")
 ```
 
 By understanding and configuring Oblix's orchestration system, you can build AI applications that seamlessly adapt to changing conditions while optimizing for cost, performance, and reliability.

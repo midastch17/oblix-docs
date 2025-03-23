@@ -83,7 +83,6 @@ You can customize Claude model settings when executing prompts:
 ```python
 response = await client.execute(
     "Write a story about a robot who gains consciousness",
-    model_id="claude:claude-3-opus-20240229",
     temperature=0.8,
     max_tokens=2000
 )
@@ -124,7 +123,7 @@ Oblix provides robust error handling for Claude API interactions:
 
 ```python
 try:
-    response = await client.execute("Generate a complex analysis", model_id="claude:claude-3-opus-20240229")
+    response = await client.execute("Generate a complex analysis")
 except Exception as e:
     print(f"Error: {e}")
     # Oblix will automatically try to use a fallback model if available

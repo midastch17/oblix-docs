@@ -191,15 +191,9 @@ response = await client.execute(
 
 # Learn which model was selected by the orchestration
 print(f"Model used by orchestration: {response['model_id']}")
-
-# You can also override orchestration when needed
-response = await client.execute(
-    "Explain quantum computing in simple terms",
-    model_id="openai:gpt-3.5-turbo"  # Explicitly use cloud model
-)
 ```
 
-> **Note:** For Oblix orchestration to work properly, ensure you've hooked at least one edge model (Ollama), one cloud model (OpenAI/Claude), and the appropriate monitoring agents. You can still override orchestration when needed using the `model_id` parameter.
+> **Note:** For Oblix orchestration to work properly, ensure you've hooked at least one edge model (Ollama), one cloud model (OpenAI/Claude), and the appropriate monitoring agents. Oblix will automatically choose the appropriate model based on resource and connectivity policies.
 
 ## Customizing Generation Parameters
 

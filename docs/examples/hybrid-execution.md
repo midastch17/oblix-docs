@@ -296,14 +296,10 @@ async def performance_optimized_app():
     async def process_task(prompt):
         task_type = classify_task_complexity(prompt)
         
-        if task_type == "simple":
-            # For simple tasks, explicitly use the faster edge model
-            print("Simple task detected, using edge model for speed")
-            response = await client.execute(prompt, model_id="ollama:phi")
-        else:
-            # For complex tasks, let Oblix orchestrate based on current conditions
-            print("Complex task detected, using intelligent orchestration")
-            response = await client.execute(prompt)
+        # For all tasks, let Oblix handle orchestration
+        print(f"Task complexity: {task_type}")
+        print("Using intelligent orchestration")
+        response = await client.execute(prompt)
         
         print(f"Response from {response['model_id']}:")
         print(response["response"])

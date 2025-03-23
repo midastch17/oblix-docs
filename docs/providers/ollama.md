@@ -125,7 +125,6 @@ You can customize Ollama model settings when executing prompts:
 ```python
 response = await client.execute(
     "Write a story about a robot who gains consciousness",
-    model_id="ollama:llama2",
     temperature=0.8,
     max_tokens=2000,
     use_gpu=True  # Enable GPU acceleration if available

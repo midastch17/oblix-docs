@@ -88,7 +88,6 @@ You can customize OpenAI model settings when executing prompts:
 ```python
 response = await client.execute(
     "Write a story about a robot who gains consciousness",
-    model_id="openai:gpt-4",
     temperature=0.8,
     max_tokens=2000,
     top_p=0.95
@@ -137,7 +136,7 @@ Oblix provides robust error handling for OpenAI API interactions:
 
 ```python
 try:
-    response = await client.execute("Generate a complex analysis", model_id="openai:gpt-4")
+    response = await client.execute("Generate a complex analysis")
 except Exception as e:
     print(f"Error: {e}")
     # Oblix will automatically try to use a fallback model if available

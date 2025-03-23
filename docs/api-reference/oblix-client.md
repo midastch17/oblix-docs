@@ -87,7 +87,6 @@ Execute a prompt using available models with intelligent orchestration.
 ```python
 async def execute(
     prompt: str,               # User prompt to process
-    model_id: str = None,      # Specific model to use (optional)
     temperature: float = None, # Sampling temperature (optional)
     max_tokens: int = None,    # Maximum tokens to generate (optional)
     request_id: str = None,    # Custom request identifier (optional)
@@ -109,18 +108,13 @@ Response structure:
 
 Example:
 ```python
-# Basic execution with automatic orchestration
+# Execution with automatic orchestration
 response = await client.execute("Explain quantum computing")
 print(response["response"])
-
-# You can also specify a particular model when needed
-response = await client.execute(
-    "Explain quantum computing",
-    model_id="openai:gpt-3.5-turbo"
-)
+print(f"Model used by orchestration: {response['model_id']}")
 ```
 
-> **Note:** For Oblix to provide orchestration, you should hook at least one local model (Ollama), one cloud model (OpenAI/Claude), and the appropriate monitoring agents. You can still specify which model to use for specific requests via the `model_id` parameter.
+> **Note:** For Oblix to provide orchestration, you should hook at least one local model (Ollama), one cloud model (OpenAI/Claude), and the appropriate monitoring agents. Orchestration decisions are made automatically based on resource and connectivity policies.
 
 ### Execute Streaming
 
@@ -129,10 +123,10 @@ Execute a prompt with streaming output.
 ```python
 async def execute_streaming(
     prompt: str,               # User prompt to process
-    model_id: str = None,      # Specific model to use (optional)
     temperature: float = None, # Sampling temperature (optional)
     max_tokens: int = None,    # Maximum tokens to generate (optional)
     request_id: str = None,    # Custom request identifier (optional)
+    display_metrics: bool = True, # Whether to display metrics (optional)
     **kwargs                   # Additional model-specific parameters
 ) -> dict:                     # Final response dictionary
 ```
@@ -142,6 +136,7 @@ Example:
 # Stream a response with automatic orchestration
 response = await client.execute_streaming("Explain quantum computing")
 # Tokens are printed to the console in real-time, then final response returned
+print(f"Model used by orchestration: {response['model_id']}")
 ```
 
 ### Chat Once

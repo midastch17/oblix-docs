@@ -60,9 +60,9 @@ This hybrid approach enables Oblix to intelligently route prompts based on:
 
 When executing a prompt, Oblix selects the provider based on:
 
-1. **Explicit selection**: If a specific model is requested
-2. **Agent recommendations**: Based on resource and connectivity checks
-3. **Default fallback**: Using the first available model
+1. **Connectivity status**: Highest priority, especially disconnected state
+2. **Resource availability**: System resource constraints and capabilities 
+3. **Default fallback**: Using the first available model if no clear choice
 
 You can see which provider was used in the response:
 
