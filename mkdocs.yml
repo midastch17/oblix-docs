@@ -107,6 +107,11 @@ nav:
       - Basic Usage: examples/basic-usage.md
       - Hybrid Execution: examples/hybrid-execution.md
       - Advanced Session Management: examples/session-management-advanced.md
+    - Integration Guides:
+      - Overview: integration-guides/index.md
+      - FastAPI Server: integration-guides/fastapi-server.md
+      - Frontend Integration: integration-guides/frontend-integration.md
+      - Troubleshooting: integration-guides/troubleshooting.md
     - CLI Reference: 
       - Overview: cli/index.md
     
