@@ -92,11 +92,6 @@ nav:
       - Quickstart: getting-started/quickstart.md
       - Installation: getting-started/installation.md
       - Authentication: getting-started/authentication.md
-    - Core Concepts:
-      - Overview: core-concepts/index.md
-      - Orchestration: core-concepts/orchestration.md
-      - Agents: core-concepts/agents.md
-      - Session Management: core-concepts/session-management.md
     - Providers:
       - Overview: providers/index.md
       - OpenAI: providers/openai.md
@@ -114,6 +109,13 @@ nav:
       - Troubleshooting: integration-guides/troubleshooting.md
     - CLI Reference: 
       - Overview: cli/index.md
+  
+  # Core Concepts tab
+  - Core Concepts:
+    - Overview: core-concepts/index.md
+    - Orchestration: core-concepts/orchestration.md
+    - Agents: core-concepts/agents.md
+    - Session Management: core-concepts/session-management.md
     
   # API Reference tab with code icon in the title
   - ">_API Reference":
