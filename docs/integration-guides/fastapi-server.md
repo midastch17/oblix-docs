@@ -347,17 +347,82 @@ async def shutdown_event():
 
 ### 3. Session Management
 
-The server handles session management, creating sessions when needed:
+The server should handle session management, including:
+- Creating sessions when needed
+- Verifying existing sessions
+- Properly maintaining context
+
+Here's an improved implementation for handling sessions:
 
 ```python
-# Use existing session or create a new one
-session_id = request.session_id
-if not session_id:
-    session_id = await oblix_client.create_session(title="New Chat")
-
-# Set current session
-oblix_client.use_session(session_id)
+@app.post("/api/oblix/stream-chat")
+async def stream_chat(request: ChatRequest):
+    global oblix_client
+    
+    if not oblix_client:
+        return JSONResponse(
+            status_code=400,
+            content={
+                "status": "error",
+                "message": "Oblix client not initialized"
+            }
+        )
+    
+    try:
+        # Use existing session or create a new one
+        session_id = request.session_id
+        
+        # Verify the session exists or create a new one
+        try:
+            # Check if session exists
+            sessions = oblix_client.list_sessions()
+            session_exists = any(s.get('id') == session_id for s in sessions)
+            
+            if not session_id or not session_exists:
+                # Create a new session if needed
+                session_id = await oblix_client.create_session(title="New Chat")
+                logger.info(f"Created new session: {session_id}")
+            else:
+                # Session exists, let's load it properly
+                logger.info(f"Reusing existing session: {session_id}")
+                
+                # Explicitly load the session to ensure we have all the context
+                session_data = oblix_client.load_session(session_id)
+                if session_data:
+                    logger.info(f"Successfully loaded session {session_id}")
+                else:
+                    logger.warning(f"Failed to load session data for {session_id}")
+            
+            # Set current session
+            oblix_client.use_session(session_id)
+            logger.info(f"Set active session to {session_id}")
+        except Exception as e:
+            logger.warning(f"Session handling error: {e}")
+            # Create a new session as fallback
+            session_id = await oblix_client.create_session(title="New Chat")
+            oblix_client.use_session(session_id)
+            logger.info(f"Created fallback session: {session_id}")
+        
+        # Execute with the established session context
+        result = await oblix_client.execute(
+            request.message,
+            temperature=request.temperature,
+            max_tokens=request.max_tokens
+        )
+        
+        # Return response with session ID
+        return {
+            "status": "success",
+            "response": result.get("response", ""),
+            "sessionId": session_id,
+            # ...other response fields
+        }
+    except Exception as e:
+        logger.error(f"Error processing chat: {e}")
+        # Error handling...
 ```
+
+This implementation ensures proper context preservation when switching between chat sessions.
 
 ## Additional Endpoints
 

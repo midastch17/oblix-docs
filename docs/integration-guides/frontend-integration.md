@@ -637,6 +637,84 @@ export const oblixApi = {
 };
 ```
 
+## Session Management Best Practices
+
+When implementing a frontend that works with Oblix sessions, follow these best practices:
+
+### Initialization Sequence
+
+Always follow the proper initialization sequence:
+
+```javascript
+// 1. First initialize Oblix client with models
+const initResult = await api.post('/oblix/initialize', {
+  oblix_api_key: apiKey,
+  models: [
+    { model_type: "OLLAMA", model_name: "llama2" },
+    { model_type: "OPENAI", model_name: "gpt-4" }
+  ]
+});
+
+// 2. Then create a session
+const sessionResult = await api.post('/oblix/create-session', {
+  title: 'New Chat'
+});
+const sessionId = sessionResult.data.sessionId;
+
+// 3. Now you can send messages
+const response = await api.post('/oblix/stream-chat', {
+  message: "Hello!",
+  session_id: sessionId
+});
+```
+
+### Switching Between Sessions
+
+When switching between chat sessions, ensure you send the correct session ID with each request:
+
+```javascript
+// When user clicks on a different chat
+const switchToSession = async (sessionId) => {
+  // Simply include the session_id in subsequent requests
+  // The backend will handle context preservation
+  const response = await api.post('/oblix/stream-chat', {
+    message: "Continuing our conversation...",
+    session_id: sessionId
+  });
+};
+```
+
+### Error Handling
+
+Handle common session-related errors:
+
+```javascript
+const sendMessage = async (message, sessionId) => {
+  try {
+    const response = await api.post('/oblix/stream-chat', {
+      message,
+      session_id: sessionId
+    });
+    return response.data;
+  } catch (error) {
+    // Check for specific error types
+    if (error.response?.data?.message?.includes('not initialized')) {
+      // Oblix client not initialized - reinitialize and try again
+      await initializeOblix();
+      return sendMessage(message, sessionId);
+    } else if (error.response?.status === 404) {
+      // Session not found - create a new one
+      const newSession = await createSession('New Chat');
+      return sendMessage(message, newSession.sessionId);
+    } else {
+      // Handle other errors
+      console.error('Message error:', error);
+      throw error;
+    }
+  }
+};
+```
+
 ## Tips for a Better User Experience
 
 1. **Loading States**: Always show loading indicators during API calls
