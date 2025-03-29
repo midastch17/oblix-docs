@@ -33,7 +33,7 @@ The `ModelType` enum is used primarily with the `hook_model()` method to specify
 ```python
 from oblix import OblixClient, ModelType
 
-client = OblixClient(oblix_api_key="your_api_key")
+client = OblixClient()
 
 # Hook a local model for orchestration
 await client.hook_model(

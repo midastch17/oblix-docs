@@ -33,9 +33,8 @@ Oblix supports Python versions 3.9, 3.10, 3.11, 3.12, and 3.13.
 Before using Oblix, you'll need:
 
 1. **macOS** - Oblix currently only supports macOS
-2. **Oblix API Key** for authentication (see [Authentication](authentication.md))
-3. **Provider API Keys** for any cloud models you want to use
-4. **Ollama** installed if you want to use local edge models
+2. **Provider API Keys** for any cloud models you want to use
+3. **Ollama** installed if you want to use local edge models
 
 ## Next Steps
 

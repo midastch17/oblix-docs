@@ -119,7 +119,7 @@ from oblix import OblixClient
 from oblix.agents import ResourceMonitor, ConnectivityAgent
 
 # Initialize client
-client = OblixClient(oblix_api_key="your_api_key")
+client = OblixClient()
 
 # Add monitoring agents
 client.hook_agent(ResourceMonitor())

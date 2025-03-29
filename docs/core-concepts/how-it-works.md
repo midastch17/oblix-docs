@@ -96,7 +96,7 @@ When you execute a prompt with Oblix, here's what happens behind the scenes:
 Oblix stores configuration persistently, including:
 
 - Model configurations
-- API keys (securely)
+- Cloud provider API keys (securely)
 - Custom thresholds
 - User preferences
 

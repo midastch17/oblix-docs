@@ -19,7 +19,7 @@ Each provider requires specific configuration when hooking models:
 ```python
 from oblix import OblixClient, ModelType
 
-client = OblixClient(oblix_api_key="your_oblix_api_key")
+client = OblixClient()
 
 # Hook Ollama (local) model
 await client.hook_model(

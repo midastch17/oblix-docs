@@ -51,15 +51,15 @@ Oblix is designed specifically for orchestrating AI workloads between cloud and 
 
 ## Authentication
 
-Most commands require an Oblix API key, which can be provided in several ways:
+Some commands require provider API keys for cloud models, which can be provided in several ways:
 
-1. Using the `--api-key` option with each command
-2. Setting the `OBLIX_API_KEY` environment variable
-3. When not provided, the CLI will prompt you to enter it
+1. Using the appropriate `--api-key-*` option with each command
+2. Setting environment variables like `OPENAI_API_KEY` or `ANTHROPIC_API_KEY`
+3. When not provided, the CLI will prompt you to enter them if needed
 
 Example:
 ```bash
-export OBLIX_API_KEY="your_oblix_api_key"
+export OPENAI_API_KEY="your_openai_api_key"
 ```
 
 ## Common Options
@@ -235,7 +235,6 @@ oblix execute "Research quantum computing papers" --session-id YOUR_SESSION_ID
 
 | Variable | Description |
 |----------|-------------|
-| `OBLIX_API_KEY` | Your Oblix API key |
 | `OPENAI_API_KEY` | Your OpenAI API key (used as default for OpenAI models) |
 | `ANTHROPIC_API_KEY` | Your Anthropic API key (used as default for Claude models) |
 

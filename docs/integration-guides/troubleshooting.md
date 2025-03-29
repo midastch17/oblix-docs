@@ -238,26 +238,27 @@ API key validation errors when initializing the Oblix client.
 
 2. Ensure the API key is properly set in environment variables:
    ```python
-   # Set the API key environment variable
+   # Set environment variables for provider API keys
    import os
-   os.environ['OBLIX_API_KEY'] = 'obx_sk_your_key_here'
+   os.environ['OPENAI_API_KEY'] = 'your_openai_api_key_here'
    
    # Initialize client without explicitly passing key
    client = OblixClient()  # Will use env var
    ```
 
-3. Test API key validation directly:
+3. Test API key before using it with providers:
    ```python
-   from oblix.auth import OblixAuth
-   
-   async def validate_key(api_key):
-       auth = OblixAuth(api_key=api_key)
+   import openai
+
+   def validate_openai_key(api_key):
        try:
-           await auth.validate_key(force_revalidation=True)
-           print("API key is valid")
+           openai.api_key = api_key
+           # Make a simple test call
+           response = openai.models.list()
+           print("OpenAI API key is valid")
            return True
        except Exception as e:
-           print(f"API key validation failed: {e}")
+           print(f"OpenAI API key validation failed: {e}")
            return False
    ```
 
@@ -272,7 +273,7 @@ Errors related to async event loops when using Oblix.
 1. Use the correct async pattern in your application:
    ```python
    async def main():
-       client = OblixClient(oblix_api_key=api_key)
+       client = OblixClient()
        # Use client async methods here
        await client.shutdown()
    

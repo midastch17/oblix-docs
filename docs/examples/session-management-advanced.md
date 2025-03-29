@@ -10,7 +10,6 @@ Before running these examples, make sure you have:
 2. Set up your API keys:
    ```python
    import os
-   os.environ["OBLIX_API_KEY"] = "your_oblix_api_key"
    os.environ["OPENAI_API_KEY"] = "your_openai_api_key"  # If using OpenAI
    ```
 
@@ -322,8 +321,8 @@ from oblix.agents import ResourceMonitor
 console = Console()
 
 async def session_management_demo():
-    # Initialize client with API key
-    client = OblixClient(oblix_api_key=os.getenv('OBLIX_API_KEY'))
+    # Initialize client
+    client = OblixClient()
     
     try:
         # Set up required components

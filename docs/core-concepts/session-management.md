@@ -136,7 +136,7 @@ from oblix.sessions import SessionManager
 session_manager = SessionManager(base_dir="/path/to/custom/directory")
 
 # Use with client
-client = OblixClient(oblix_api_key="your_api_key")
+client = OblixClient()
 client.session_manager = session_manager
 ```
 

@@ -15,8 +15,8 @@ The main entry point to the SDK. Handles model management, orchestration, execut
 ```python
 from oblix import OblixClient
 
-# Initialize with your API key
-client = OblixClient(oblix_api_key="your_api_key")
+# Initialize the client
+client = OblixClient()
 ```
 
 ### [ModelType](model-types.md)
@@ -60,7 +60,7 @@ from oblix.agents import ResourceMonitor, ConnectivityAgent
 
 async def main():
     # 1. Initialize client
-    client = OblixClient(oblix_api_key="your_api_key")
+    client = OblixClient()
     
     # 2. Hook models for orchestration
     await client.hook_model(ModelType.OLLAMA, "llama2")  # Local edge model

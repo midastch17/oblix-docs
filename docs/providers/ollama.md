@@ -49,7 +49,7 @@ ollama pull gemma
 from oblix import OblixClient, ModelType
 
 # Initialize client
-client = OblixClient(oblix_api_key="your_oblix_api_key")
+client = OblixClient()
 
 # Hook Ollama model with default endpoint (http://localhost:11434)
 await client.hook_model(
@@ -93,7 +93,7 @@ from oblix.agents.resource_monitor import ResourceMonitor
 from oblix.agents.connectivity import ConnectivityAgent
 
 # Initialize client
-client = OblixClient(oblix_api_key="your_oblix_api_key")
+client = OblixClient()
 
 # Hook local Ollama model
 await client.hook_model(

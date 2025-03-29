@@ -30,8 +30,7 @@ async def main():
     load_dotenv()
     
     # Initialize client
-    oblix_api_key = os.getenv('OBLIX_API_KEY')
-    client = OblixClient(oblix_api_key=oblix_api_key)
+    client = OblixClient()
     
     # Hook an edge model
     await client.hook_model(
@@ -106,8 +105,7 @@ async def main():
     load_dotenv()
     
     # Initialize client
-    oblix_api_key = os.getenv('OBLIX_API_KEY')
-    client = OblixClient(oblix_api_key=oblix_api_key)
+    client = OblixClient()
     
     # Tier 1: Small edge model (fast, low resources)
     await client.hook_model(
@@ -178,7 +176,7 @@ from oblix.agents import ResourceMonitor, ConnectivityAgent
 
 async def offline_first_app():
     # Initialize client
-    client = OblixClient(oblix_api_key="your_oblix_api_key")
+    client = OblixClient()
     
     # Primary model: Edge
     await client.hook_model(
@@ -254,7 +252,7 @@ from oblix.agents import ResourceMonitor, ConnectivityAgent
 
 async def performance_optimized_app():
     # Initialize client
-    client = OblixClient(oblix_api_key="your_oblix_api_key")
+    client = OblixClient()
     
     # Fast edge model for quick responses
     await client.hook_model(
@@ -438,7 +436,7 @@ class CostOptimizationAgent(BaseAgent):
 
 async def cost_optimized_app():
     # Initialize client
-    client = OblixClient(oblix_api_key="your_oblix_api_key")
+    client = OblixClient()
     
     # Hook models for orchestration
     # Tier 1: Free edge model (no cost)
