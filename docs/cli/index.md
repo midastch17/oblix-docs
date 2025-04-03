@@ -160,6 +160,10 @@ The server provides an OpenAI-compatible endpoint that can be used with any clie
 | `--local-model` | Local model to use (format: provider:model_name) |
 | `--cloud-model` | Cloud model to use (format: provider:model_name) |
 | `--cloud-api-key` | API key for the cloud model |
+| `--enable-resource-monitor/--disable-resource-monitor` | Enable or disable the resource monitoring agent (default: enabled) |
+| `--enable-connectivity-agent/--disable-connectivity-agent` | Enable or disable the connectivity monitoring agent (default: enabled) |
+
+> **Note:** At least one monitoring agent must be enabled at all times. If you try to disable both agents, the resource monitoring agent will be automatically enabled.
 
 ### Using the Server
 
@@ -203,6 +207,10 @@ oblix chat --local-model ollama:llama2 --cloud-model claude:claude-3-haiku --clo
 | `--local-model` | Local model to use (format: provider:model_name) |
 | `--cloud-model` | Cloud model to use (format: provider:model_name) |
 | `--cloud-api-key` | API key for cloud model |
+| `--enable-resource-monitor/--disable-resource-monitor` | Enable or disable the resource monitoring agent (default: enabled) |
+| `--enable-connectivity-agent/--disable-connectivity-agent` | Enable or disable the connectivity monitoring agent (default: enabled) |
+
+> **Note:** At least one monitoring agent must be enabled at all times. If you try to disable both agents, the resource monitoring agent will be automatically enabled.
 
 ## Initialization
 
