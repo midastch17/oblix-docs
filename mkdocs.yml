@@ -123,3 +123,4 @@ nav:
     - OblixClient: api-reference/oblix-client.md
     - ModelType: api-reference/model-types.md
     - Agents: api-reference/agents.md
+    - REST Endpoints: api-reference/rest-endpoints.md

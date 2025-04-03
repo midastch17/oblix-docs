@@ -44,6 +44,17 @@ client.hook_agent(ResourceMonitor())
 client.hook_agent(ConnectivityAgent())
 ```
 
+### [REST Endpoints](rest-endpoints.md)
+
+HTTP API endpoints for integrating with Oblix Server, including the OpenAI-compatible interface.
+
+```python
+from openai import OpenAI
+
+# Connect to Oblix Server using OpenAI-compatible endpoints
+client = OpenAI(base_url="http://localhost:62549/v1", api_key="oblix-api-key")
+```
+
 ## Orchestration Workflow
 
 Using the Oblix API for orchestration typically follows this pattern:
@@ -101,3 +112,4 @@ Explore detailed documentation for each component:
 - [OblixClient API Reference](oblix-client.md)
 - [ModelType Enum Reference](model-types.md)
 - [Agents Reference](agents.md)
+- [REST Endpoints Reference](rest-endpoints.md)
