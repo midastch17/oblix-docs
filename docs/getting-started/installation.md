@@ -38,22 +38,22 @@ You should see the current version of Oblix displayed.
 
 After installation, you'll need to set up environment variables before using Oblix from the Terminal.
 
-### Required Environment Variables
+### Cloud Model API Keys
 
-For Oblix to function properly, you must set the following environment variables:
+For using cloud models with Oblix, you'll need to set up the following API keys:
 
-1. **OBLIX_API_KEY** - Your Oblix API key
-2. **OPENAI_API_KEY** - Your OpenAI API key (for using GPT models)
-3. **ANTHROPIC_API_KEY** - Your Anthropic API key (for using Claude models)
+1. **OPENAI_API_KEY** - Your OpenAI API key (for using GPT models)
+2. **ANTHROPIC_API_KEY** - Your Anthropic API key (for using Claude models)
 
 You can set these in your terminal session or add them to your shell profile for persistence:
 
 ```bash
 # Add these lines to your ~/.zshrc or ~/.bash_profile
-export OBLIX_API_KEY="your_oblix_api_key_here"
 export OPENAI_API_KEY="your_openai_api_key_here"
 export ANTHROPIC_API_KEY="your_anthropic_api_key_here"
 ```
+
+> **Note:** Oblix no longer requires an API key for initialization.
 
 After adding these to your profile file, apply the changes:
 

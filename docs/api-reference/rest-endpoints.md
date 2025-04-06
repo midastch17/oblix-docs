@@ -20,14 +20,14 @@ http://localhost:62549/v1
 
 ### Authentication
 
-Use the `oblix-api-key` as the API key:
+Oblix no longer requires API key authentication. You can use any value for the API key parameter:
 
 ```python
 from openai import OpenAI
 
 client = OpenAI(
     base_url="http://localhost:62549/v1",
-    api_key="oblix-api-key"  # The literal string "oblix-api-key"
+    api_key="any-value"  # Any string value can be used here
 )
 ```
 
@@ -113,7 +113,7 @@ from openai import OpenAI
 
 client = OpenAI(
     base_url="http://localhost:62549/v1",
-    api_key="oblix-api-key"
+    api_key="any-value"
 )
 
 stream = client.chat.completions.create(
@@ -172,7 +172,7 @@ from openai import OpenAI
 
 client = OpenAI(
     base_url="http://localhost:62549/v1",
-    api_key="oblix-api-key"
+    api_key="any-value"
 )
 
 response = client.chat.completions.create(

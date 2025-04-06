@@ -8,12 +8,13 @@ The `OblixClient` class is the main entry point for the Oblix SDK. It provides a
 from oblix import OblixClient
 
 client = OblixClient(
-    oblix_api_key: str = None,  # Oblix API key (or use OBLIX_API_KEY env var)
     host: str = "localhost",     # Host address (default: localhost)
     port: int = 4321,           # Port number (default: 4321)
     config_path: str = None     # Path to configuration file (optional)
 )
 ```
+
+> **Note:** Oblix no longer requires an API key for initialization.
 
 ## Core Methods
 

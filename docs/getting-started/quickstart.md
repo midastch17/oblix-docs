@@ -30,16 +30,10 @@ Before using Oblix with local models, you'll need to:
 ### 1. Initialize Client
 
 ```python
-import os
-from dotenv import load_dotenv
 from oblix import OblixClient
 
-# Load environment variables from .env file
-load_dotenv()
-
-# Initialize the client with your Oblix API key
-oblix_api_key = os.getenv('OBLIX_API_KEY')
-client = OblixClient(oblix_api_key=oblix_api_key)
+# Initialize the client
+client = OblixClient()
 ```
 
 ### 2. Hook Models
@@ -113,12 +107,8 @@ from oblix.agents import ResourceMonitor, ConnectivityAgent
 load_dotenv()
 
 async def main():
-    # Initialize client with API key from environment
-    oblix_api_key = os.getenv('OBLIX_API_KEY')
-    if not oblix_api_key:
-        raise ValueError("OBLIX_API_KEY environment variable must be set")
-    
-    client = OblixClient(oblix_api_key=oblix_api_key)
+    # Initialize client
+    client = OblixClient()
     
     # Set up resource monitor
     resource_monitor = ResourceMonitor(name="resource_monitor")

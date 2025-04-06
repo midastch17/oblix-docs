@@ -43,7 +43,6 @@ function ChatInterface() {
       try {
         setLoading(true);
         const response = await axios.post(`${API_BASE_URL}/oblix/initialize`, {
-          oblix_api_key: 'your_oblix_api_key', // Get this from env or user input
           models: [
             {
               model_type: 'OLLAMA',
@@ -250,7 +249,6 @@ export default {
         this.loading = true;
         
         const response = await axios.post(`${this.apiBaseUrl}/oblix/initialize`, {
-          oblix_api_key: 'your_oblix_api_key', // Get this from env or user input
           models: [
             {
               model_type: 'OLLAMA',
@@ -586,10 +584,9 @@ import axios from 'axios';
 const API_BASE_URL = 'http://your-oblix-api-server:8000/api';
 
 export const oblixApi = {
-  initialize: async (oblixApiKey, models) => {
+  initialize: async (models) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/oblix/initialize`, {
-        oblix_api_key: oblixApiKey,
         models
       });
       return response.data;
@@ -648,7 +645,6 @@ Always follow the proper initialization sequence:
 ```javascript
 // 1. First initialize Oblix client with models
 const initResult = await api.post('/oblix/initialize', {
-  oblix_api_key: apiKey,
   models: [
     { model_type: "OLLAMA", model_name: "llama2" },
     { model_type: "OPENAI", model_name: "gpt-4" }

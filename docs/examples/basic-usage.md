@@ -21,21 +21,15 @@ Before using Oblix with edge models, you'll need to:
 
 ## Initialization
 
-Initialize the Oblix client with your API key:
+Initialize the Oblix client:
 
 ```python
 import asyncio
-import os
-from dotenv import load_dotenv
 from oblix import OblixClient
 
 async def main():
-    # Load environment variables from .env file
-    load_dotenv()
-    
-    # Initialize with API key from environment
-    oblix_api_key = os.getenv('OBLIX_API_KEY')
-    client = OblixClient(oblix_api_key=oblix_api_key)
+    # Initialize the client
+    client = OblixClient()
     
     # Rest of your code here...
     
@@ -61,8 +55,8 @@ async def main():
     # Load environment variables from .env file
     load_dotenv()
     
-    oblix_api_key = os.getenv('OBLIX_API_KEY')
-    client = OblixClient(oblix_api_key=oblix_api_key)
+    # Initialize client (no API key required)
+    client = OblixClient()
     
     # Hook an edge model via Ollama (replace with any model you've pulled)
     await client.hook_model(
@@ -109,8 +103,8 @@ async def main():
     # Load environment variables from .env file
     load_dotenv()
     
-    oblix_api_key = os.getenv('OBLIX_API_KEY')
-    client = OblixClient(oblix_api_key=oblix_api_key)
+    # Initialize client (no API key required)
+    client = OblixClient()
     
     # Hook edge and cloud models for orchestration
     await client.hook_model(
@@ -152,7 +146,8 @@ from oblix.agents.resource_monitor import ResourceMonitor
 from oblix.agents.connectivity import ConnectivityAgent
 
 async def main():
-    client = OblixClient(oblix_api_key="your_oblix_api_key")
+    # Initialize client (no API key required)
+    client = OblixClient()
     
     # Hook edge and cloud models for orchestration
     await client.hook_model(ModelType.OLLAMA, "llama2")
@@ -218,7 +213,7 @@ from oblix import OblixClient, ModelType
 from oblix.agents import ResourceMonitor, ConnectivityAgent
 
 async def main():
-    client = OblixClient(oblix_api_key="your_oblix_api_key")
+    client = OblixClient()
     
     # Hook models for orchestration
     await client.hook_model(ModelType.OLLAMA, "llama2")
@@ -253,7 +248,7 @@ import asyncio
 from oblix import OblixClient, ModelType
 
 async def main():
-    client = OblixClient(oblix_api_key="your_oblix_api_key")
+    client = OblixClient()
     
     # Hook models for orchestration
     await client.hook_model(ModelType.OLLAMA, "llama2")
@@ -293,7 +288,7 @@ import asyncio
 from oblix import OblixClient, ModelType
 
 async def main():
-    client = OblixClient(oblix_api_key="your_oblix_api_key")
+    client = OblixClient()
     
     # Hook models for orchestration
     await client.hook_model(ModelType.OLLAMA, "llama2")
@@ -331,8 +326,8 @@ async def main():
     # Load environment variables from .env file
     load_dotenv()
     
-    oblix_api_key = os.getenv('OBLIX_API_KEY')
-    client = OblixClient(oblix_api_key=oblix_api_key)
+    # Initialize the client
+    client = OblixClient()
     
     # Hook edge and cloud models for orchestration
     await client.hook_model(
@@ -386,7 +381,7 @@ from oblix import OblixClient, ModelType
 
 async def main():
     try:
-        client = OblixClient(oblix_api_key="your_oblix_api_key")
+        client = OblixClient()
         
         # Hook edge model for orchestration
         await client.hook_model(ModelType.OLLAMA, "llama2")

@@ -9,6 +9,9 @@ theme:
   custom_dir: docs/overrides
   favicon: assets/favicon.png
   logo: assets/oblixlogo.png
+  font:
+    text: Roboto
+    code: JetBrains Mono
   palette:
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"

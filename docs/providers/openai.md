@@ -20,7 +20,7 @@ You'll need an OpenAI API key to use OpenAI models. You can get one from the [Op
 from oblix import OblixClient, ModelType
 
 # Initialize client
-client = OblixClient(oblix_api_key="your_oblix_api_key")
+client = OblixClient()
 
 # Hook OpenAI model
 await client.hook_model(
@@ -55,7 +55,7 @@ from oblix.agents.resource_monitor import ResourceMonitor
 from oblix.agents.connectivity import ConnectivityAgent
 
 # Initialize client
-client = OblixClient(oblix_api_key="your_oblix_api_key")
+client = OblixClient()
 
 # Hook local Ollama model
 await client.hook_model(

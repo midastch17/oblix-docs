@@ -48,21 +48,19 @@ Oblix is designed specifically for orchestrating AI workloads between cloud and 
 | `sessions` | View and manage your chat history |
 | `server` | Start the Oblix API server to use with any client application |
 | `chat` | Start an interactive AI chat in your terminal |
-| `init` | Set up Oblix with your API key to get started |
 | `check-updates` | Check if a newer version of Oblix is available |
 
 ## Authentication
 
-Most commands require an Oblix API key, which can be provided in several ways:
+Oblix no longer requires an API key for general usage. However, provider-specific API keys are still needed for cloud models:
 
-1. Using the `--api-key` option with each command
-2. Setting the `OBLIX_API_KEY` environment variable
-3. When not provided, the CLI will prompt you to enter it
-4. Run `oblix init` to store your API key securely
+1. For OpenAI models, set the `OPENAI_API_KEY` environment variable
+2. For Claude models, set the `ANTHROPIC_API_KEY` environment variable
 
 Example:
 ```bash
-export OBLIX_API_KEY="your_oblix_api_key"
+export OPENAI_API_KEY="your_openai_api_key"
+export ANTHROPIC_API_KEY="your_anthropic_api_key"
 ```
 
 ## Common Options
@@ -154,7 +152,6 @@ The server provides an OpenAI-compatible endpoint that can be used with any clie
 
 | Option | Description |
 |--------|-------------|
-| `--api-key` | Oblix API key (optional, will use saved API key if not provided) |
 | `--port` | Port to run the server on (default: 62549) |
 | `--host` | Host to bind the server to (default: 0.0.0.0) |
 | `--local-model` | Local model to use (format: provider:model_name) |
@@ -172,7 +169,7 @@ You can use any OpenAI-compatible client library:
 ```python
 from openai import OpenAI
 
-client = OpenAI(base_url="http://localhost:62549/v1", api_key="oblix-api-key")
+client = OpenAI(base_url="http://localhost:62549/v1", api_key="any-value")
 response = client.chat.completions.create(
     model="auto",  # Use "auto" for Oblix's intelligent orchestration
     messages=[
@@ -199,27 +196,9 @@ oblix chat --local-model ollama:llama2 --cloud-model claude:claude-3-haiku --clo
 
 | Option | Description |
 |--------|-------------|
-| `--api-key` | Oblix API key (optional, will use saved API key if not provided) |
 | `--local-model` | Local model to use (format: provider:model_name) |
 | `--cloud-model` | Cloud model to use (format: provider:model_name) |
 | `--cloud-api-key` | API key for cloud model |
-
-## Initialization
-
-Initialize Oblix with your API key:
-
-```bash
-oblix init [--api-key YOUR_API_KEY] [--verify/--no-verify]
-```
-
-This will store your API key securely and verify it with the Oblix service.
-
-### Init Options
-
-| Option | Description |
-|--------|-------------|
-| `--api-key` | Your Oblix API key (if not provided, will prompt for it) |
-| `--verify/--no-verify` | Verify API key with server (default: verify) |
 
 ## Check for Updates
 
@@ -233,7 +212,6 @@ oblix check-updates
 
 | Variable | Description |
 |----------|-------------|
-| `OBLIX_API_KEY` | Your Oblix API key |
 | `OPENAI_API_KEY` | Your OpenAI API key (used as default for OpenAI models) |
 | `ANTHROPIC_API_KEY` | Your Anthropic API key (used as default for Claude models) |
 

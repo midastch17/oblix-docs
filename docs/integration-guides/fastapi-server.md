@@ -73,7 +73,6 @@ class ModelConfig(BaseModel):
     api_key: Optional[str] = None
 
 class InitializeRequest(BaseModel):
-    oblix_api_key: str
     models: List[ModelConfig]
 
 class ChatRequest(BaseModel):
@@ -106,8 +105,8 @@ async def initialize_oblix(request: InitializeRequest):
             except Exception as e:
                 logger.error(f"Error shutting down existing client: {e}")
         
-        # Create a new client with the provided API key
-        oblix_client = OblixClient(oblix_api_key=request.oblix_api_key)
+        # Create a new client
+        oblix_client = OblixClient()
         
         # Reset active models
         active_models = {
